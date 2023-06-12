@@ -1,0 +1,7 @@
+app:
+  name: Webdiet Frontend Service
+  version: @project.version@
+
+logging:
+  file:
+    path: ./logs
