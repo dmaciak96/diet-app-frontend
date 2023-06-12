@@ -1,6 +1,7 @@
 app:
   name: Webdiet Frontend Service
   version: @project.version@
+  backend-port: 8090
 
 logging:
   file:
