@@ -2,17 +2,27 @@ package pl.daveproject.frontendservice.login;
 
 
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.login.AbstractLogin;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.router.Route;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Route("/login")
 public class LoginView extends Div {
     public LoginView() {
+        createLoginOverlay();
+    }
+
+    public void createLoginOverlay() {
         var loginOverlay = new LoginOverlay();
         loginOverlay.setI18n(createLoginTranslationComponent());
-        add(loginOverlay);
+
         loginOverlay.setOpened(true);
+        loginOverlay.addLoginListener(this::processLoginRequest);
+        loginOverlay.addForgotPasswordListener(this::routeToForgotPasswordPage);
+        add(loginOverlay);
     }
 
     private LoginI18n createLoginTranslationComponent() {
@@ -37,5 +47,13 @@ public class LoginView extends Div {
         i18n.setErrorMessage(i18nErrorMessage);
 
         return i18n;
+    }
+
+    private void routeToForgotPasswordPage(AbstractLogin.ForgotPasswordEvent event) {
+        log.info("Route to forgot password page...");
+    }
+
+    private void processLoginRequest(AbstractLogin.LoginEvent event) {
+        log.info("Login to system...");
     }
 }
