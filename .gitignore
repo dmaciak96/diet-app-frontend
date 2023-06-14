@@ -5,6 +5,12 @@ target/
 logs
 frontend/generated
 frontend/index.html
+node_modules
+package-lock.json
+tsconfig.json
+types.d.ts
+vite.config.ts
+vite.generated.ts
 
 ### STS ###
 .apt_generated
