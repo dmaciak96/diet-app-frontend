@@ -1,8 +1,16 @@
 app:
   name: Webdiet Frontend Service
   version: @project.version@
-  backend-port: 8090
 
 logging:
   file:
     path: ./logs
+
+route:
+  url:
+    backend: http://localhost:8090/api
+
+jwt:
+  cookie:
+    expiration:
+      seconds: 3600

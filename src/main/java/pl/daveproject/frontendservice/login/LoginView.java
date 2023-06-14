@@ -1,22 +1,36 @@
 package pl.daveproject.frontendservice.login;
 
 
-import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.login.AbstractLogin;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.login.LoginOverlay;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.reactive.function.client.WebClientException;
+import pl.daveproject.frontendservice.login.model.LoginRequest;
+import pl.daveproject.frontendservice.login.service.LoginService;
 
 @Slf4j
 @Route("/login")
-public class LoginView extends Div {
-    public LoginView() {
+@CssImport("./styles/style.css")
+public class LoginView extends VerticalLayout {
+
+    private final LoginService loginService;
+    private LoginOverlay loginOverlay;
+    private LoginI18n i18n;
+
+    public LoginView(LoginService loginService) {
+        this.loginService = loginService;
+        this.i18n = LoginI18n.createDefault();
+        loginOverlay = new LoginOverlay();
         createLoginOverlay();
     }
 
     public void createLoginOverlay() {
-        var loginOverlay = new LoginOverlay();
+        loginOverlay = new LoginOverlay();
         loginOverlay.setI18n(createLoginTranslationComponent());
 
         loginOverlay.setOpened(true);
@@ -26,8 +40,6 @@ public class LoginView extends Div {
     }
 
     private LoginI18n createLoginTranslationComponent() {
-        var i18n = LoginI18n.createDefault();
-
         var i18nHeader = new LoginI18n.Header();
         i18nHeader.setTitle(getTranslation("application.name"));
         i18nHeader.setDescription(getTranslation("application.description"));
@@ -50,10 +62,20 @@ public class LoginView extends Div {
     }
 
     private void routeToForgotPasswordPage(AbstractLogin.ForgotPasswordEvent event) {
-        log.info("Route to forgot password page...");
+        log.debug("Route to forgot password page...");
     }
 
     private void processLoginRequest(AbstractLogin.LoginEvent event) {
-        log.info("Login to system...");
+        log.debug("Login to system...");
+        try {
+            var response = loginService.sendLoginRequest(new LoginRequest(event.getUsername(), event.getPassword()));
+            loginService.saveJwtToken(response);
+        } catch (WebClientException e) {
+            log.error("Login error: {}", e.getMessage());
+            if (!e.getMessage().contains(HttpStatus.UNAUTHORIZED.toString())) {
+                i18n.getErrorMessage().setMessage(getTranslation("login-page.error-message-fatal"));
+            }
+            loginOverlay.setError(true);
+        }
     }
 }
