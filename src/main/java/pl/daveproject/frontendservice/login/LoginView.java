@@ -1,7 +1,7 @@
 package pl.daveproject.frontendservice.login;
 
 
-import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.login.AbstractLogin;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.login.LoginOverlay;
@@ -14,13 +14,13 @@ import pl.daveproject.frontendservice.login.model.LoginRequest;
 import pl.daveproject.frontendservice.login.service.LoginService;
 
 @Slf4j
-@Route("/login")
-@CssImport("./styles/style.css")
+@Route(value = "/login")
+@JsModule("prefers-color-scheme.js")
 public class LoginView extends VerticalLayout {
 
     private final LoginService loginService;
     private LoginOverlay loginOverlay;
-    private LoginI18n i18n;
+    private final LoginI18n i18n;
 
     public LoginView(LoginService loginService) {
         this.loginService = loginService;
