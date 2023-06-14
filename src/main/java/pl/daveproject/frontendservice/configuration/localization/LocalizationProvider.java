@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.localization;
+package pl.daveproject.frontendservice.configuration.localization;
 
 import com.vaadin.flow.i18n.I18NProvider;
 import lombok.extern.slf4j.Slf4j;

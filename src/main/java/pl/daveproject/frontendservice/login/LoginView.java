@@ -1,42 +1,44 @@
 package pl.daveproject.frontendservice.login;
 
 
-import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.login.AbstractLogin;
+import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
-import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.client.WebClientException;
+import pl.daveproject.frontendservice.applicationLayout.BeforeLoginAppLayout;
+import pl.daveproject.frontendservice.applicationLayout.EmptyView;
 import pl.daveproject.frontendservice.login.model.LoginRequest;
 import pl.daveproject.frontendservice.login.service.LoginService;
 
 @Slf4j
-@Route(value = "/login")
-@JsModule("prefers-color-scheme.js")
-public class LoginView extends VerticalLayout {
+@Route(value = "/login", layout = BeforeLoginAppLayout.class)
+public class LoginView extends VerticalLayout implements HasDynamicTitle {
 
     private final LoginService loginService;
-    private LoginOverlay loginOverlay;
+    private final LoginForm loginForm;
     private final LoginI18n i18n;
 
     public LoginView(LoginService loginService) {
         this.loginService = loginService;
         this.i18n = LoginI18n.createDefault();
-        loginOverlay = new LoginOverlay();
-        createLoginOverlay();
+        this.loginForm = new LoginForm();
+        this.setSizeFull();
+        this.setJustifyContentMode(JustifyContentMode.CENTER);
+        this.setAlignItems(Alignment.CENTER);
+        setupLoginForm();
     }
 
-    public void createLoginOverlay() {
-        loginOverlay = new LoginOverlay();
-        loginOverlay.setI18n(createLoginTranslationComponent());
-
-        loginOverlay.setOpened(true);
-        loginOverlay.addLoginListener(this::processLoginRequest);
-        loginOverlay.addForgotPasswordListener(this::routeToForgotPasswordPage);
-        add(loginOverlay);
+    public void setupLoginForm() {
+        loginForm.setI18n(createLoginTranslationComponent());
+        loginForm.addLoginListener(this::processLoginRequest);
+        loginForm.addForgotPasswordListener(this::routeToForgotPasswordPage);
+        add(loginForm);
     }
 
     private LoginI18n createLoginTranslationComponent() {
@@ -63,6 +65,8 @@ public class LoginView extends VerticalLayout {
 
     private void routeToForgotPasswordPage(AbstractLogin.ForgotPasswordEvent event) {
         log.debug("Route to forgot password page...");
+        //TODO: Implement forgot password functionallity
+        UI.getCurrent().navigate(EmptyView.class);
     }
 
     private void processLoginRequest(AbstractLogin.LoginEvent event) {
@@ -70,12 +74,20 @@ public class LoginView extends VerticalLayout {
         try {
             var response = loginService.sendLoginRequest(new LoginRequest(event.getUsername(), event.getPassword()));
             loginService.saveJwtToken(response);
+
+            //TODO: Route to dashboard view
+            UI.getCurrent().navigate(EmptyView.class);
         } catch (WebClientException e) {
             log.error("Login error: {}", e.getMessage());
             if (!e.getMessage().contains(HttpStatus.UNAUTHORIZED.toString())) {
                 i18n.getErrorMessage().setMessage(getTranslation("login-page.error-message-fatal"));
             }
-            loginOverlay.setError(true);
+            loginForm.setError(true);
         }
+    }
+
+    @Override
+    public String getPageTitle() {
+        return getTranslation("login-page.title");
     }
 }
