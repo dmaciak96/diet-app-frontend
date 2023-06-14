@@ -3,7 +3,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 logs
-frontend
+frontend/generated
+frontend/index.html
 
 ### STS ###
 .apt_generated
