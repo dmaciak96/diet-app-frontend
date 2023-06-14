@@ -4,6 +4,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -12,7 +13,8 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import pl.daveproject.frontendservice.login.LoginView;
 import pl.daveproject.frontendservice.registration.RegistrationView;
 
-@JsModule("prefers-color-scheme.js")
+@CssImport("./style.css")
+@JsModule("./prefers-color-scheme.js")
 public class BeforeLoginAppLayout extends AppLayout {
 
     public BeforeLoginAppLayout() {
@@ -34,7 +36,7 @@ public class BeforeLoginAppLayout extends AppLayout {
 
     private HorizontalLayout createRouterLinks() {
         var routerLinksLayout = new HorizontalLayout();
-        routerLinksLayout.addClassNames(LumoUtility.Width.FULL);
+        routerLinksLayout.addClassNames(LumoUtility.Width.FULL, LumoUtility.Margin.Right.MEDIUM);
         routerLinksLayout.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         routerLinksLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
 
