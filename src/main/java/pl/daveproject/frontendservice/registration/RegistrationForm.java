@@ -72,7 +72,6 @@ public class RegistrationForm extends FormLayout {
     private void addElementsToForm() {
         this.add(email, 2);
         this.add(password,
-                createConfirmPasswordField(),
                 firstName,
                 lastName,
                 weight,
@@ -82,10 +81,6 @@ public class RegistrationForm extends FormLayout {
                 activityLevel);
         photo.addClassNames(LumoUtility.Margin.Top.MEDIUM);
         this.add(photo, 2);
-    }
-
-    private PasswordField createConfirmPasswordField() {
-        return new PasswordField(getTranslation("register-page.confirm-password"));
     }
 
     private void createSubmitButtons() {
