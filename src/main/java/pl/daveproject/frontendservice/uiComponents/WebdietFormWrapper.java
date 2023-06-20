@@ -6,20 +6,21 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import lombok.Getter;
 
 @Getter
-public class WebdietFormLayoutWrapper extends VerticalLayout {
+public class WebdietFormWrapper extends VerticalLayout {
 
     private final FormLayout formLayout;
 
-    public WebdietFormLayoutWrapper(String formTitleKey) {
-        this(formTitleKey, true);
+    public WebdietFormWrapper(String formTitleKey, FormLayout formLayout) {
+        this(formTitleKey, formLayout, true);
     }
 
-    public WebdietFormLayoutWrapper(String formTitleKey,
-                                    boolean mediumWidth) {
+    public WebdietFormWrapper(String formTitleKey,
+                              FormLayout formLayout,
+                              boolean mediumWidth) {
         this.setSizeFull();
         this.setJustifyContentMode(JustifyContentMode.CENTER);
         this.setAlignItems(Alignment.CENTER);
-        this.formLayout = new FormLayout();
+        this.formLayout = formLayout;
         add(new H2(getTranslation(formTitleKey)));
         formLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("0", 2));
         formLayout.setClassName(getCssClassName(mediumWidth));
