@@ -25,7 +25,7 @@ public class BaseRestService {
                 .orElseThrow(UserNotLoginException::new).getValue();
     }
 
-    private Optional<Cookie> getCookieByName(String cookieName) {
+    protected Optional<Cookie> getCookieByName(String cookieName) {
         return Arrays.stream(VaadinService.getCurrentRequest().getCookies())
                 .filter(cookie -> StringUtils.isNotBlank(cookie.getName()) && cookie.getName().equals(cookieName))
                 .findFirst();
