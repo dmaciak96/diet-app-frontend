@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.registration;
+package pl.daveproject.frontendservice.ui.registration;
 
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -21,12 +21,12 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import lombok.Getter;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import pl.daveproject.frontendservice.registration.model.ActivityLevel;
-import pl.daveproject.frontendservice.registration.model.ApplicationUser;
-import pl.daveproject.frontendservice.registration.model.Gender;
-import pl.daveproject.frontendservice.uiComponents.WebdietNotification;
-import pl.daveproject.frontendservice.uiComponents.WebdietPhotoFileUpload;
-import pl.daveproject.frontendservice.uiComponents.type.WebdietNotificationType;
+import pl.daveproject.frontendservice.ui.registration.model.ActivityLevel;
+import pl.daveproject.frontendservice.ui.registration.model.ApplicationUser;
+import pl.daveproject.frontendservice.ui.registration.model.Gender;
+import pl.daveproject.frontendservice.ui.component.WebdietNotification;
+import pl.daveproject.frontendservice.ui.component.WebdietPhotoFileUpload;
+import pl.daveproject.frontendservice.ui.component.type.WebdietNotificationType;
 
 import java.io.IOException;
 

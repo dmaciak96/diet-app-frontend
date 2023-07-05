@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.login;
+package pl.daveproject.frontendservice.ui.login;
 
 
 import com.vaadin.flow.component.UI;
@@ -11,10 +11,10 @@ import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.client.WebClientException;
-import pl.daveproject.frontendservice.applicationLayout.BeforeLoginAppLayout;
-import pl.daveproject.frontendservice.applicationLayout.EmptyView;
-import pl.daveproject.frontendservice.login.model.LoginRequest;
-import pl.daveproject.frontendservice.login.service.LoginService;
+import pl.daveproject.frontendservice.ui.layout.BeforeLoginAppLayout;
+import pl.daveproject.frontendservice.ui.layout.EmptyView;
+import pl.daveproject.frontendservice.ui.login.model.LoginRequest;
+import pl.daveproject.frontendservice.ui.login.service.LoginService;
 
 @Slf4j
 @Route(value = "/login", layout = BeforeLoginAppLayout.class)

@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.uiComponents;
+package pl.daveproject.frontendservice.ui.component;
 
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H2;

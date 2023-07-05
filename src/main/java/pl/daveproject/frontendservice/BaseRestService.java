@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import pl.daveproject.frontendservice.login.model.LoginResponse;
+import pl.daveproject.frontendservice.ui.login.model.LoginResponse;
 
 import java.util.Arrays;
 import java.util.Optional;

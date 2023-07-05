@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.registration.model;
+package pl.daveproject.frontendservice.ui.registration.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;

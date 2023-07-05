@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.registration.model;
+package pl.daveproject.frontendservice.ui.registration.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
