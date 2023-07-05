@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.ui.registration.model;
+package pl.daveproject.frontendservice.applicationUser.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 @Getter
 @Setter
@@ -41,4 +42,8 @@ public class ApplicationUser {
     private Gender gender;
     private ActivityLevel activityLevel;
     private Byte[] photo;
+
+    public String getFullName() {
+        return firstName + StringUtils.SPACE + lastName;
+    }
 }

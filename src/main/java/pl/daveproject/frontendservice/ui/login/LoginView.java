@@ -11,6 +11,7 @@ import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.client.WebClientException;
+import pl.daveproject.frontendservice.ui.dashboard.DashboardView;
 import pl.daveproject.frontendservice.ui.layout.BeforeLoginAppLayout;
 import pl.daveproject.frontendservice.ui.layout.EmptyView;
 import pl.daveproject.frontendservice.ui.login.model.LoginRequest;
@@ -74,9 +75,7 @@ public class LoginView extends VerticalLayout implements HasDynamicTitle {
         try {
             var response = loginService.sendLoginRequest(new LoginRequest(event.getUsername(), event.getPassword()));
             loginService.saveJwtToken(response);
-
-            //TODO: Route to dashboard view
-            UI.getCurrent().navigate(EmptyView.class);
+            UI.getCurrent().navigate(DashboardView.class);
         } catch (WebClientException e) {
             log.error("Login error: {}", e.getMessage());
             if (!e.getMessage().contains(HttpStatus.UNAUTHORIZED.toString())) {

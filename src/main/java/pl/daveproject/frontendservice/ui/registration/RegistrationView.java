@@ -7,13 +7,13 @@ import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import pl.daveproject.frontendservice.ui.layout.BeforeLoginAppLayout;
-import pl.daveproject.frontendservice.ui.login.LoginView;
-import pl.daveproject.frontendservice.ui.registration.model.ApplicationUser;
-import pl.daveproject.frontendservice.ui.registration.service.RegistrationService;
+import pl.daveproject.frontendservice.applicationUser.model.ApplicationUser;
 import pl.daveproject.frontendservice.ui.component.WebdietFormWrapper;
 import pl.daveproject.frontendservice.ui.component.WebdietNotification;
 import pl.daveproject.frontendservice.ui.component.type.WebdietNotificationType;
+import pl.daveproject.frontendservice.ui.layout.BeforeLoginAppLayout;
+import pl.daveproject.frontendservice.ui.login.LoginView;
+import pl.daveproject.frontendservice.ui.registration.service.RegistrationService;
 
 @Slf4j
 @Route(value = "/register", layout = BeforeLoginAppLayout.class)

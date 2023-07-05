@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import pl.daveproject.frontendservice.exception.UserNotLoginException;
 import pl.daveproject.frontendservice.ui.login.model.LoginResponse;
 
 import java.util.Arrays;
@@ -18,6 +19,11 @@ public class BaseRestService {
 
     @Value("${jwt.cookie.expiration.seconds}")
     private int JWT_COOKIE_EXPIRATION_SECONDS;
+
+    protected String getJwtToken() {
+        return getCookieByName(BaseRestService.JWT_COOKIE_NAME)
+                .orElseThrow(UserNotLoginException::new).getValue();
+    }
 
     private Optional<Cookie> getCookieByName(String cookieName) {
         return Arrays.stream(VaadinService.getCurrentRequest().getCookies())
