@@ -1,18 +1,25 @@
 package pl.daveproject.frontendservice.ui.layout;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.avatar.Avatar;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import lombok.extern.slf4j.Slf4j;
 import pl.daveproject.frontendservice.applicationUser.ApplicationUserService;
 import pl.daveproject.frontendservice.exception.UserNotLoginException;
 import pl.daveproject.frontendservice.ui.component.WebdietNotification;
 import pl.daveproject.frontendservice.ui.component.type.WebdietNotificationType;
+import pl.daveproject.frontendservice.ui.dashboard.DashboardView;
 import pl.daveproject.frontendservice.ui.login.LoginView;
 import pl.daveproject.frontendservice.ui.login.service.LoginService;
 
@@ -24,10 +31,11 @@ public class AfterLoginAppLayout extends AbstractAppLayout {
 
     public AfterLoginAppLayout(ApplicationUserService applicationUserService,
                                LoginService loginService) {
-        super();
+        super(true);
         this.applicationUserService = applicationUserService;
         this.loginService = loginService;
         addToNavbar(createAvatar());
+        addToDrawer(getMenuTabs());
     }
 
     private HorizontalLayout createAvatar() {
@@ -63,5 +71,27 @@ public class AfterLoginAppLayout extends AbstractAppLayout {
             UI.getCurrent().navigate(LoginView.class);
         });
         return menuBar;
+    }
+
+    private Tabs getMenuTabs() {
+        Tabs tabs = new Tabs();
+        tabs.add(createTab(VaadinIcon.DASHBOARD, getTranslation("side-menu.dashboard"), DashboardView.class),
+                createTab(VaadinIcon.CONNECT, getTranslation("side-menu.products"), EmptyView.class),
+                createTab(VaadinIcon.COFFEE, getTranslation("side-menu.recipes"), EmptyView.class),
+                createTab(VaadinIcon.CART, getTranslation("side-menu.shopping-lists"), EmptyView.class));
+        tabs.setOrientation(Tabs.Orientation.VERTICAL);
+        return tabs;
+    }
+
+    private Tab createTab(VaadinIcon viewIcon, String menuLabel, Class<? extends Component> viewClass) {
+        var icon = viewIcon.create();
+        icon.addClassNames("menu-icon");
+
+        var link = new RouterLink();
+        link.add(icon, new Span(menuLabel));
+        link.setRoute(viewClass);
+        link.setTabIndex(-1);
+
+        return new Tab(link);
     }
 }

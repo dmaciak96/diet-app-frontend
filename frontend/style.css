@@ -7,3 +7,10 @@
     align-self: auto;
     width: 50%;
 }
+
+.menu-icon {
+    box-sizing: border-box;
+    margin-inline-end: var(--lumo-space-m);
+    margin-inline-start: var(--lumo-space-xs);
+    padding: var(--lumo-space-xs);
+}

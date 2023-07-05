@@ -1,6 +1,7 @@
 package pl.daveproject.frontendservice.ui.layout;
 
 import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.H1;
@@ -13,6 +14,13 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 public class AbstractAppLayout extends AppLayout {
 
     public AbstractAppLayout() {
+        this(false);
+    }
+
+    public AbstractAppLayout(boolean withDrawerToggle) {
+        if(withDrawerToggle) {
+            addToNavbar(new DrawerToggle());
+        }
         addToNavbar(createHeader());
     }
 
