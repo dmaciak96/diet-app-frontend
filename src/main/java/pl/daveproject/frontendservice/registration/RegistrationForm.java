@@ -13,15 +13,22 @@ import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import lombok.Getter;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import pl.daveproject.frontendservice.registration.model.ActivityLevel;
 import pl.daveproject.frontendservice.registration.model.ApplicationUser;
 import pl.daveproject.frontendservice.registration.model.Gender;
-import pl.daveproject.frontendservice.uiComponents.WebdietUpload;
+import pl.daveproject.frontendservice.uiComponents.WebdietNotification;
+import pl.daveproject.frontendservice.uiComponents.WebdietPhotoFileUpload;
+import pl.daveproject.frontendservice.uiComponents.type.WebdietNotificationType;
+
+import java.io.IOException;
 
 public class RegistrationForm extends FormLayout {
 
@@ -35,7 +42,7 @@ public class RegistrationForm extends FormLayout {
     private final IntegerField age;
     private final ComboBox<Gender> gender;
     private final ComboBox<ActivityLevel> activityLevel;
-    private final WebdietUpload photo;
+    private final WebdietPhotoFileUpload photo;
 
     public RegistrationForm(ApplicationUser applicationUser) {
         this.email = new EmailField(getTranslation("register-page.email"));
@@ -49,7 +56,7 @@ public class RegistrationForm extends FormLayout {
         this.gender.setItems(Gender.values());
         this.activityLevel = new ComboBox<>(getTranslation("register-page.activity-level"));
         this.activityLevel.setItems(ActivityLevel.values());
-        this.photo = new WebdietUpload();
+        this.photo = createUploadComponent();
 
         this.binder = new BeanValidationBinder<>(ApplicationUser.class);
         this.binder.setBean(applicationUser);
@@ -59,6 +66,21 @@ public class RegistrationForm extends FormLayout {
         setComboBoxValues();
         addElementsToForm();
         createSubmitButtons();
+    }
+
+    private WebdietPhotoFileUpload createUploadComponent() {
+        var memoryBuffer = new MemoryBuffer();
+        var upload = new WebdietPhotoFileUpload(memoryBuffer);
+        upload.addSucceededListener(event -> {
+            try {
+                var fileContent = IOUtils.toByteArray(memoryBuffer.getInputStream());
+                binder.getBean().setPhoto(ArrayUtils.toObject(fileContent));
+            } catch (IOException e) {
+                WebdietNotification.show(getTranslation("upload.server-unexpected-error"),
+                        WebdietNotificationType.ERROR);
+            }
+        });
+        return upload;
     }
 
     private void setComboBoxValues() {
@@ -79,7 +101,6 @@ public class RegistrationForm extends FormLayout {
                 age,
                 gender,
                 activityLevel);
-        photo.addClassNames(LumoUtility.Margin.Top.MEDIUM);
         this.add(photo, 2);
     }
 
