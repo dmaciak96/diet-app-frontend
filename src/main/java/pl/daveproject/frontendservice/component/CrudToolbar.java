@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.ui.component;
+package pl.daveproject.frontendservice.component;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;

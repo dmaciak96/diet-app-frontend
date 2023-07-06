@@ -1,12 +1,12 @@
-package pl.daveproject.frontendservice.ui.login.service;
+package pl.daveproject.frontendservice.login.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import pl.daveproject.frontendservice.BaseRestService;
-import pl.daveproject.frontendservice.ui.login.model.LoginRequest;
-import pl.daveproject.frontendservice.ui.login.model.LoginResponse;
+import pl.daveproject.frontendservice.login.model.LoginRequest;
+import pl.daveproject.frontendservice.login.model.LoginResponse;
 import reactor.core.publisher.Mono;
 
 @Slf4j

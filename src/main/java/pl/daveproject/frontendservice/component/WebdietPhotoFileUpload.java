@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.ui.component;
+package pl.daveproject.frontendservice.component;
 
 import com.vaadin.flow.component.upload.Receiver;
 import com.vaadin.flow.component.upload.Upload;
@@ -6,7 +6,7 @@ import com.vaadin.flow.component.upload.UploadI18N;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import pl.daveproject.frontendservice.ui.component.type.WebdietNotificationType;
+import pl.daveproject.frontendservice.component.type.WebdietNotificationType;
 
 @Slf4j
 public class WebdietPhotoFileUpload extends Upload {

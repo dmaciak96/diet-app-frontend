@@ -1,10 +1,10 @@
-package pl.daveproject.frontendservice.ui.shoppinglist;
+package pl.daveproject.frontendservice.shoppinglist;
 
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
-import pl.daveproject.frontendservice.ui.component.CrudToolbar;
-import pl.daveproject.frontendservice.ui.layout.AfterLoginAppLayout;
+import pl.daveproject.frontendservice.component.CrudToolbar;
+import pl.daveproject.frontendservice.layout.AfterLoginAppLayout;
 
 @Route(value = "/shopping-lists", layout = AfterLoginAppLayout.class)
 public class ShoppingListView extends VerticalLayout implements HasDynamicTitle {

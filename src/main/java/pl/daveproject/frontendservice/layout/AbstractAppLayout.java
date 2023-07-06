@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.ui.layout;
+package pl.daveproject.frontendservice.layout;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;

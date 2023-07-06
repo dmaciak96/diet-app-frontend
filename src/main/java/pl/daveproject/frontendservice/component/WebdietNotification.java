@@ -1,8 +1,8 @@
-package pl.daveproject.frontendservice.ui.component;
+package pl.daveproject.frontendservice.component;
 
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
-import pl.daveproject.frontendservice.ui.component.type.WebdietNotificationType;
+import pl.daveproject.frontendservice.component.type.WebdietNotificationType;
 
 public class WebdietNotification {
     private static final int NOTIFICATION_DISPLAY_DURATION_MS = 3000;

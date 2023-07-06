@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.ui.registration;
+package pl.daveproject.frontendservice.registration;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -9,11 +9,11 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import pl.daveproject.frontendservice.applicationUser.ApplicationUserService;
 import pl.daveproject.frontendservice.applicationUser.model.ApplicationUser;
-import pl.daveproject.frontendservice.ui.component.WebdietFormWrapper;
-import pl.daveproject.frontendservice.ui.component.WebdietNotification;
-import pl.daveproject.frontendservice.ui.component.type.WebdietNotificationType;
-import pl.daveproject.frontendservice.ui.layout.BeforeLoginAppLayout;
-import pl.daveproject.frontendservice.ui.login.LoginView;
+import pl.daveproject.frontendservice.component.WebdietFormWrapper;
+import pl.daveproject.frontendservice.component.WebdietNotification;
+import pl.daveproject.frontendservice.component.type.WebdietNotificationType;
+import pl.daveproject.frontendservice.layout.BeforeLoginAppLayout;
+import pl.daveproject.frontendservice.login.LoginView;
 
 @Slf4j
 @Route(value = "/register", layout = BeforeLoginAppLayout.class)

@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.ui.layout;
+package pl.daveproject.frontendservice.layout;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vaadin.flow.component.Component;
@@ -17,15 +17,15 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import lombok.extern.slf4j.Slf4j;
 import pl.daveproject.frontendservice.applicationUser.ApplicationUserService;
 import pl.daveproject.frontendservice.exception.UserNotLoginException;
-import pl.daveproject.frontendservice.ui.EmptyView;
-import pl.daveproject.frontendservice.ui.component.WebdietNotification;
-import pl.daveproject.frontendservice.ui.component.type.WebdietNotificationType;
-import pl.daveproject.frontendservice.ui.dashboard.DashboardView;
-import pl.daveproject.frontendservice.ui.login.LoginView;
-import pl.daveproject.frontendservice.ui.login.service.LoginService;
-import pl.daveproject.frontendservice.ui.product.ProductView;
-import pl.daveproject.frontendservice.ui.recipe.RecipeView;
-import pl.daveproject.frontendservice.ui.shoppinglist.ShoppingListView;
+import pl.daveproject.frontendservice.EmptyView;
+import pl.daveproject.frontendservice.component.WebdietNotification;
+import pl.daveproject.frontendservice.component.type.WebdietNotificationType;
+import pl.daveproject.frontendservice.dashboard.DashboardView;
+import pl.daveproject.frontendservice.login.LoginView;
+import pl.daveproject.frontendservice.login.service.LoginService;
+import pl.daveproject.frontendservice.product.ProductView;
+import pl.daveproject.frontendservice.recipe.RecipeView;
+import pl.daveproject.frontendservice.shoppinglist.ShoppingListView;
 
 @Slf4j
 public class AfterLoginAppLayout extends AbstractAppLayout {

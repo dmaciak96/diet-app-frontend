@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.ui.layout;
+package pl.daveproject.frontendservice.layout;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
@@ -6,8 +6,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import pl.daveproject.frontendservice.ui.login.LoginView;
-import pl.daveproject.frontendservice.ui.registration.RegistrationView;
+import pl.daveproject.frontendservice.login.LoginView;
+import pl.daveproject.frontendservice.registration.RegistrationView;
 
 public class BeforeLoginAppLayout extends AbstractAppLayout {
 

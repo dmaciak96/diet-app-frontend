@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.ui.login.model;
+package pl.daveproject.frontendservice.login.model;
 
 public record LoginRequest(String email, String password) {
 }
