@@ -26,7 +26,7 @@ public class ApplicationUserService extends BaseRestService {
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
 
-    public ApplicationUser findCurrentUser() throws JsonProcessingException {
+    public ApplicationUser findCurrentUser() {
         var token = getJwtToken();
         var email = getEmailFromToken(token);
         return webClient.get()
@@ -40,11 +40,15 @@ public class ApplicationUserService extends BaseRestService {
                 .block();
     }
 
-    private String getEmailFromToken(String token) throws JsonProcessingException {
-        var jwtTokenSections = token.split("\\.");
-        var payloadDecodedJson = new String(Base64.getUrlDecoder().decode(jwtTokenSections[1]));
-        var jsonObject = objectMapper.readValue(payloadDecodedJson, ObjectNode.class);
-        return jsonObject.get(EMAIL_JSON_KEY).asText();
+    private String getEmailFromToken(String token) {
+        try {
+            var jwtTokenSections = token.split("\\.");
+            var payloadDecodedJson = new String(Base64.getUrlDecoder().decode(jwtTokenSections[1]));
+            var jsonObject = objectMapper.readValue(payloadDecodedJson, ObjectNode.class);
+            return jsonObject.get(EMAIL_JSON_KEY).asText();
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public ApplicationUser registerUser(ApplicationUser applicationUser) {

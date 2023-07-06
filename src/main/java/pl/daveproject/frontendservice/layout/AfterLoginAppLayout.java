@@ -1,6 +1,5 @@
 package pl.daveproject.frontendservice.layout;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -15,12 +14,12 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import lombok.extern.slf4j.Slf4j;
-import pl.daveproject.frontendservice.applicationUser.ApplicationUserService;
-import pl.daveproject.frontendservice.exception.UserNotLoginException;
 import pl.daveproject.frontendservice.EmptyView;
+import pl.daveproject.frontendservice.applicationUser.ApplicationUserService;
 import pl.daveproject.frontendservice.component.WebdietNotification;
 import pl.daveproject.frontendservice.component.type.WebdietNotificationType;
 import pl.daveproject.frontendservice.dashboard.DashboardView;
+import pl.daveproject.frontendservice.exception.UserNotLoginException;
 import pl.daveproject.frontendservice.login.LoginView;
 import pl.daveproject.frontendservice.login.service.LoginService;
 import pl.daveproject.frontendservice.product.ProductView;
@@ -47,12 +46,12 @@ public class AfterLoginAppLayout extends AbstractAppLayout {
         try {
             var currentUser = applicationUserService.findCurrentUser();
             avatar = new Avatar(currentUser.getFullName());
-        } catch (JsonProcessingException e) {
-            WebdietNotification.show(getTranslation("error-message.unexpected"), WebdietNotificationType.ERROR);
-            log.error("Jwt token processing error: ", e);
         } catch (UserNotLoginException e) {
             WebdietNotification.show(getTranslation("error-message.user-not-login"), WebdietNotificationType.ERROR);
             log.error("Login user not found for current session: ", e);
+        } catch (RuntimeException e) {
+            WebdietNotification.show(getTranslation("error-message.unexpected"), WebdietNotificationType.ERROR);
+            log.error("Jwt token processing error: ", e);
         }
 
         var layout = new HorizontalLayout(createAvatarMenuBar(avatar));
