@@ -23,6 +23,9 @@ import pl.daveproject.frontendservice.ui.component.type.WebdietNotificationType;
 import pl.daveproject.frontendservice.ui.dashboard.DashboardView;
 import pl.daveproject.frontendservice.ui.login.LoginView;
 import pl.daveproject.frontendservice.ui.login.service.LoginService;
+import pl.daveproject.frontendservice.ui.product.ProductView;
+import pl.daveproject.frontendservice.ui.recipe.RecipeView;
+import pl.daveproject.frontendservice.ui.shoppinglist.ShoppingListView;
 
 @Slf4j
 public class AfterLoginAppLayout extends AbstractAppLayout {
@@ -77,9 +80,9 @@ public class AfterLoginAppLayout extends AbstractAppLayout {
     private Tabs getMenuTabs() {
         Tabs tabs = new Tabs();
         tabs.add(createTab(VaadinIcon.DASHBOARD, getTranslation("side-menu.dashboard"), DashboardView.class),
-                createTab(VaadinIcon.CONNECT, getTranslation("side-menu.products"), EmptyView.class),
-                createTab(VaadinIcon.COFFEE, getTranslation("side-menu.recipes"), EmptyView.class),
-                createTab(VaadinIcon.CART, getTranslation("side-menu.shopping-lists"), EmptyView.class));
+                createTab(VaadinIcon.CONNECT, getTranslation("side-menu.products"), ProductView.class),
+                createTab(VaadinIcon.COFFEE, getTranslation("side-menu.recipes"), RecipeView.class),
+                createTab(VaadinIcon.CART, getTranslation("side-menu.shopping-lists"), ShoppingListView.class));
         tabs.setOrientation(Tabs.Orientation.VERTICAL);
         return tabs;
     }
