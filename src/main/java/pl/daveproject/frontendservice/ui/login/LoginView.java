@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.client.WebClientException;
 import pl.daveproject.frontendservice.ui.dashboard.DashboardView;
 import pl.daveproject.frontendservice.ui.layout.BeforeLoginAppLayout;
-import pl.daveproject.frontendservice.ui.layout.EmptyView;
+import pl.daveproject.frontendservice.ui.EmptyView;
 import pl.daveproject.frontendservice.ui.login.model.LoginRequest;
 import pl.daveproject.frontendservice.ui.login.service.LoginService;
 

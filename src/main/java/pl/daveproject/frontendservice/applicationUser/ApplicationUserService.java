@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import pl.daveproject.frontendservice.BaseRestService;
 import pl.daveproject.frontendservice.applicationUser.model.ApplicationUser;
+import reactor.core.publisher.Mono;
 
 import java.util.Base64;
 
@@ -20,6 +21,7 @@ public class ApplicationUserService extends BaseRestService {
     private static final String EMAIL_JSON_KEY = "sub";
     private static final String EMAIL_QUERY_PARAM_NAME = "email";
     private static final String GET_USER_BY_EMAIL_ENDPOINT = "/applicationUsers/search/findByEmail";
+    private static final String REGISTER_ENDPOINT = "/applicationUsers";
 
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
@@ -43,5 +45,14 @@ public class ApplicationUserService extends BaseRestService {
         var payloadDecodedJson = new String(Base64.getUrlDecoder().decode(jwtTokenSections[1]));
         var jsonObject = objectMapper.readValue(payloadDecodedJson, ObjectNode.class);
         return jsonObject.get(EMAIL_JSON_KEY).asText();
+    }
+
+    public ApplicationUser registerUser(ApplicationUser applicationUser) {
+        return webClient.post()
+                .uri(REGISTER_ENDPOINT)
+                .body(Mono.just(applicationUser), ApplicationUser.class)
+                .retrieve()
+                .bodyToMono(ApplicationUser.class)
+                .block();
     }
 }

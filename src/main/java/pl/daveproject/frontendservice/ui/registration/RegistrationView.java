@@ -7,23 +7,23 @@ import com.vaadin.flow.router.Route;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import pl.daveproject.frontendservice.applicationUser.ApplicationUserService;
 import pl.daveproject.frontendservice.applicationUser.model.ApplicationUser;
 import pl.daveproject.frontendservice.ui.component.WebdietFormWrapper;
 import pl.daveproject.frontendservice.ui.component.WebdietNotification;
 import pl.daveproject.frontendservice.ui.component.type.WebdietNotificationType;
 import pl.daveproject.frontendservice.ui.layout.BeforeLoginAppLayout;
 import pl.daveproject.frontendservice.ui.login.LoginView;
-import pl.daveproject.frontendservice.ui.registration.service.RegistrationService;
 
 @Slf4j
 @Route(value = "/register", layout = BeforeLoginAppLayout.class)
 public class RegistrationView extends VerticalLayout implements HasDynamicTitle {
 
     private final WebdietFormWrapper registrationForm;
-    private final RegistrationService registrationService;
+    private final ApplicationUserService applicationUserService;
 
-    public RegistrationView(RegistrationService registrationService) {
-        this.registrationService = registrationService;
+    public RegistrationView(ApplicationUserService applicationUserService) {
+        this.applicationUserService = applicationUserService;
         this.setSizeFull();
         this.setJustifyContentMode(JustifyContentMode.CENTER);
         this.setAlignItems(Alignment.CENTER);
@@ -44,7 +44,7 @@ public class RegistrationView extends VerticalLayout implements HasDynamicTitle 
         form.addSaveListener(e -> {
             try {
                 log.info("Registering new User: {}", e.getApplicationUser().getEmail());
-                registrationService.registerUser(e.getApplicationUser());
+                applicationUserService.registerUser(e.getApplicationUser());
                 UI.getCurrent().navigate(LoginView.class);
             } catch (WebClientResponseException ex) {
                 if (ex.getStatusCode() == HttpStatusCode.valueOf(409)) {

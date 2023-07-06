@@ -17,6 +17,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import lombok.extern.slf4j.Slf4j;
 import pl.daveproject.frontendservice.applicationUser.ApplicationUserService;
 import pl.daveproject.frontendservice.exception.UserNotLoginException;
+import pl.daveproject.frontendservice.ui.EmptyView;
 import pl.daveproject.frontendservice.ui.component.WebdietNotification;
 import pl.daveproject.frontendservice.ui.component.type.WebdietNotificationType;
 import pl.daveproject.frontendservice.ui.dashboard.DashboardView;
