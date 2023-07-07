@@ -10,6 +10,10 @@ public class WebdietFormWrapper extends VerticalLayout {
 
     private final FormLayout formLayout;
 
+    public WebdietFormWrapper(FormLayout formLayout, boolean mediumWidth) {
+        this(null, formLayout, mediumWidth);
+    }
+
     public WebdietFormWrapper(String formTitleKey, FormLayout formLayout) {
         this(formTitleKey, formLayout, true);
     }
@@ -21,7 +25,9 @@ public class WebdietFormWrapper extends VerticalLayout {
         this.setJustifyContentMode(JustifyContentMode.CENTER);
         this.setAlignItems(Alignment.CENTER);
         this.formLayout = formLayout;
-        add(new H2(getTranslation(formTitleKey)));
+        if (formTitleKey != null) {
+            add(new H2(getTranslation(formTitleKey)));
+        }
         formLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("0", 2));
         formLayout.setClassName(getCssClassName(mediumWidth));
         add(formLayout);

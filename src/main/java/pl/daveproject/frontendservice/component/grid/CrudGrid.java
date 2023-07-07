@@ -45,6 +45,10 @@ public class CrudGrid<MODEL, FILTER extends GridDataFilter> extends VerticalLayo
         toolbar.deleteOnClickListener(listener);
     }
 
+    public void refresh() {
+        grid.setItems(filterDataProvider);
+    }
+
     private Grid<MODEL> createGrid() {
         var grid = new Grid<MODEL>();
         grid.addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);

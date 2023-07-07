@@ -6,17 +6,22 @@ import com.vaadin.flow.router.Route;
 import pl.daveproject.frontendservice.component.grid.CrudGrid;
 import pl.daveproject.frontendservice.layout.AfterLoginAppLayout;
 import pl.daveproject.frontendservice.product.model.Product;
+import pl.daveproject.frontendservice.product.service.ProductService;
 
 @Route(value = "/products", layout = AfterLoginAppLayout.class)
 public class ProductView extends VerticalLayout implements HasDynamicTitle {
 
     private final CrudGrid<Product, ProductFilter> productGrid;
+    private final ProductService productService;
 
     public ProductView(ProductFilter productFilter,
-                       ProductDataProvider productDataProvider) {
+                       ProductDataProvider productDataProvider,
+                       ProductService productService) {
         this.productGrid = new CrudGrid<>(productDataProvider, productFilter);
+        this.productService = productService;
         createGridColumns();
         setOnNewClickListener();
+        setOnEditClickListener();
         add(productGrid);
     }
 
@@ -38,10 +43,29 @@ public class ProductView extends VerticalLayout implements HasDynamicTitle {
     }
 
     private void setOnNewClickListener() {
-        productGrid.addOnClickListener(event -> {
-            var productDialog = new ProductDialog();
-            add(productDialog);
-            productDialog.open();
+        productGrid.addOnClickListener(event ->
+                createAndOpenProductDialog(Product.builder().build()));
+    }
+
+    private void setOnEditClickListener() {
+        productGrid.editOnClickListener(event -> {
+            var selectedProduct = productGrid.getGrid()
+                    .getSelectedItems()
+                    .stream()
+                    .findFirst();
+            selectedProduct.ifPresent(this::createAndOpenProductDialog);
+        });
+    }
+
+
+    private void createAndOpenProductDialog(Product product) {
+        var productDialog = new ProductDialog(productService, product);
+        add(productDialog);
+        productDialog.open();
+        productDialog.addOpenedChangeListener(e -> {
+            if (!e.isOpened()) {
+                productGrid.refresh();
+            }
         });
     }
 
