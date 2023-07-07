@@ -14,6 +14,7 @@ public class CrudToolbar extends HorizontalLayout {
     private final Button deleteButton;
 
     public CrudToolbar() {
+        this.setMargin(false);
         this.addButton = new Button(getTranslation("crud-toolbar.button-label-new"),
                 new Icon(VaadinIcon.PLUS));
         this.editButton = new Button(getTranslation("crud-toolbar.button-label-edit"),
