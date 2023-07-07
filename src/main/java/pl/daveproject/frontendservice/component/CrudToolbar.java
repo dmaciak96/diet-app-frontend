@@ -20,6 +20,8 @@ public class CrudToolbar extends HorizontalLayout {
                 new Icon(VaadinIcon.EDIT));
         this.deleteButton = new Button(getTranslation("crud-toolbar.button-label-delete"),
                 new Icon(VaadinIcon.TRASH));
+        this.editButton.setEnabled(false);
+        this.deleteButton.setEnabled(false);
         add(addButton, editButton, deleteButton);
         this.addClassNames(LumoUtility.Margin.MEDIUM);
     }
@@ -34,5 +36,13 @@ public class CrudToolbar extends HorizontalLayout {
 
     public void deleteOnClickListener(ComponentEventListener<ClickEvent<Button>> listener) {
         deleteButton.addClickListener(listener);
+    }
+
+    public void setEnabledOnEdit(boolean enabled) {
+        this.editButton.setEnabled(enabled);
+    }
+
+    public void setEnabledOnDelete(boolean enabled) {
+        this.deleteButton.setEnabled(enabled);
     }
 }
