@@ -13,6 +13,7 @@ import pl.daveproject.frontendservice.product.model.ProductResponse;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -69,6 +70,16 @@ public class ProductService extends BaseRestService {
         return webClient.put()
                 .uri(PRODUCTS_ENDPOINT_WITH_ID, product.getId())
                 .body(Mono.just(product), Product.class)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .retrieve()
+                .bodyToMono(Product.class)
+                .block();
+    }
+
+    public void delete(UUID id) {
+        var token = getJwtToken();
+        webClient.delete()
+                .uri(PRODUCTS_ENDPOINT_WITH_ID, id)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .retrieve()
                 .bodyToMono(Product.class)

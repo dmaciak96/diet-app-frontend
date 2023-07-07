@@ -3,6 +3,7 @@ package pl.daveproject.frontendservice.product;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
+import pl.daveproject.frontendservice.component.DeleteConfirmDialog;
 import pl.daveproject.frontendservice.component.grid.CrudGrid;
 import pl.daveproject.frontendservice.layout.AfterLoginAppLayout;
 import pl.daveproject.frontendservice.product.model.Product;
@@ -22,6 +23,7 @@ public class ProductView extends VerticalLayout implements HasDynamicTitle {
         createGridColumns();
         setOnNewClickListener();
         setOnEditClickListener();
+        setOnDeleteClickListener();
         add(productGrid);
     }
 
@@ -57,7 +59,6 @@ public class ProductView extends VerticalLayout implements HasDynamicTitle {
         });
     }
 
-
     private void createAndOpenProductDialog(Product product) {
         var productDialog = new ProductDialog(productService, product);
         add(productDialog);
@@ -66,6 +67,28 @@ public class ProductView extends VerticalLayout implements HasDynamicTitle {
             if (!e.isOpened()) {
                 productGrid.refresh();
             }
+        });
+    }
+
+    private void setOnDeleteClickListener() {
+        productGrid.deleteOnClickListener(event -> {
+            var selectedProduct = productGrid.getGrid()
+                    .getSelectedItems()
+                    .stream()
+                    .findFirst();
+            selectedProduct.ifPresent(this::createAndOpenProductDeleteDialog);
+        });
+    }
+
+    private void createAndOpenProductDeleteDialog(Product product) {
+        var confirmDialogSuffix = "%s \"%s\"".formatted(getTranslation("delete-dialog.header-product-suffix"),
+                product.getName());
+        var confirmDialog = new DeleteConfirmDialog(confirmDialogSuffix);
+        confirmDialog.open();
+        confirmDialog.addConfirmListener(event -> {
+            productService.delete(product.getId());
+            productGrid.refresh();
+            confirmDialog.close();
         });
     }
 
