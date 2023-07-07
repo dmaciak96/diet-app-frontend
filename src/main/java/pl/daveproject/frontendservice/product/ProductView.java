@@ -16,6 +16,7 @@ public class ProductView extends VerticalLayout implements HasDynamicTitle {
                        ProductDataProvider productDataProvider) {
         this.productGrid = new CrudGrid<>(productDataProvider, productFilter);
         createGridColumns();
+        setOnNewClickListener();
         add(productGrid);
     }
 
@@ -34,6 +35,14 @@ public class ProductView extends VerticalLayout implements HasDynamicTitle {
                 .setHeader(getTranslation("products-page.grid-label-type"))
                 .setSortable(true)
                 .setResizable(true);
+    }
+
+    private void setOnNewClickListener() {
+        productGrid.addOnClickListener(event -> {
+            var productDialog = new ProductDialog();
+            add(productDialog);
+            productDialog.open();
+        });
     }
 
     @Override

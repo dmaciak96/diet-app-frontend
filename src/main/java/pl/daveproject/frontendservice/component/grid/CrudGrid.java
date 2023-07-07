@@ -1,5 +1,8 @@
 package pl.daveproject.frontendservice.component.grid;
 
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.icon.Icon;
@@ -11,8 +14,10 @@ import com.vaadin.flow.data.provider.ConfigurableFilterDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import lombok.Getter;
 
-@Getter
+
 public class CrudGrid<MODEL, FILTER extends GridDataFilter> extends VerticalLayout {
+
+    @Getter
     private final Grid<MODEL> grid;
     private final CrudToolbar toolbar;
     private final ConfigurableFilterDataProvider<MODEL, Void, FILTER> filterDataProvider;
@@ -26,6 +31,18 @@ public class CrudGrid<MODEL, FILTER extends GridDataFilter> extends VerticalLayo
         this.grid = createGrid();
         this.toolbar = new CrudToolbar();
         add(toolbar, createSearchTextField(), grid);
+    }
+
+    public void addOnClickListener(ComponentEventListener<ClickEvent<Button>> listener) {
+        toolbar.addOnClickListener(listener);
+    }
+
+    public void editOnClickListener(ComponentEventListener<ClickEvent<Button>> listener) {
+        toolbar.editOnClickListener(listener);
+    }
+
+    public void deleteOnClickListener(ComponentEventListener<ClickEvent<Button>> listener) {
+        toolbar.deleteOnClickListener(listener);
     }
 
     private Grid<MODEL> createGrid() {
