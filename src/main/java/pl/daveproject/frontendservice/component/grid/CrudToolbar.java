@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.component;
+package pl.daveproject.frontendservice.component.grid;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -6,7 +6,6 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.theme.lumo.LumoUtility;
 
 public class CrudToolbar extends HorizontalLayout {
     private final Button addButton;
@@ -14,7 +13,6 @@ public class CrudToolbar extends HorizontalLayout {
     private final Button deleteButton;
 
     public CrudToolbar() {
-        this.setMargin(false);
         this.addButton = new Button(getTranslation("crud-toolbar.button-label-new"),
                 new Icon(VaadinIcon.PLUS));
         this.editButton = new Button(getTranslation("crud-toolbar.button-label-edit"),
@@ -24,7 +22,6 @@ public class CrudToolbar extends HorizontalLayout {
         this.editButton.setEnabled(false);
         this.deleteButton.setEnabled(false);
         add(addButton, editButton, deleteButton);
-        this.addClassNames(LumoUtility.Margin.MEDIUM);
     }
 
     public void addOnClickListener(ComponentEventListener<ClickEvent<Button>> listener) {

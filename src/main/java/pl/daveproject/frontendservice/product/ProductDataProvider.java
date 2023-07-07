@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.product.service;
+package pl.daveproject.frontendservice.product;
 
 import com.vaadin.flow.data.provider.AbstractBackEndDataProvider;
 import com.vaadin.flow.data.provider.Query;
@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.daveproject.frontendservice.component.Translator;
 import pl.daveproject.frontendservice.product.model.Product;
+import pl.daveproject.frontendservice.product.service.ProductService;
 
 import java.util.Comparator;
 import java.util.List;

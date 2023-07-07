@@ -1,13 +1,14 @@
-package pl.daveproject.frontendservice.product.service;
+package pl.daveproject.frontendservice.product;
 
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 import pl.daveproject.frontendservice.component.Translator;
+import pl.daveproject.frontendservice.component.grid.GridDataFilter;
 import pl.daveproject.frontendservice.product.model.Product;
 
 @Setter
 @Component
-public class ProductFilter implements Translator {
+public class ProductFilter implements Translator, GridDataFilter {
     private String searchValue;
 
     public boolean match(Product product) {
