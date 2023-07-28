@@ -7,17 +7,10 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import java.util.List;
-import java.util.UUID;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import pl.daveproject.frontendservice.dashboard.DashboardView;
 import pl.daveproject.frontendservice.registration.RegistrationView;
 
 public class BeforeLoginAppLayout extends AbstractAppLayout {
-
-  private static final String keycloakAuthenticationEndpoint = "protocol/openid-connect/auth";
-
-  private String keycloakAuthentication = "%s/%s?client_id=%s&response_type=%s&scope=%s&redirect_uri=%s&state=%s";
 
   public BeforeLoginAppLayout(
       @Value("${spring.security.oauth2.client.provider.keycloak.issuer-uri}") String keycloakUrl,
@@ -25,12 +18,6 @@ public class BeforeLoginAppLayout extends AbstractAppLayout {
       @Value("${spring.security.oauth2.client.registration.keycloak.scope}") List<String> scopes,
       @Value("${spring.security.oauth2.redirect-uri}") String redirectUri) {
     super();
-    var state = UUID.randomUUID().toString();
-    var responseType = "code";
-    this.keycloakAuthentication = this.keycloakAuthentication.formatted(keycloakUrl,
-        keycloakAuthenticationEndpoint, clientId,
-        responseType,
-        String.join(StringUtils.SPACE, scopes), redirectUri, state);
     addToNavbar(createRouterLinks());
   }
 
@@ -40,7 +27,7 @@ public class BeforeLoginAppLayout extends AbstractAppLayout {
     routerLinksLayout.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
     routerLinksLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
 
-    routerLinksLayout.add(createRouterLink("login-page.login", DashboardView.class));
+    routerLinksLayout.add(createRouterLink("login-page.login", "/login"));
     routerLinksLayout.add(createRouterLink("register-page.sign-up", RegistrationView.class));
     return routerLinksLayout;
   }
@@ -53,6 +40,6 @@ public class BeforeLoginAppLayout extends AbstractAppLayout {
 
   private Button createRouterLink(String linkTranslationKey, String url) {
     return new Button(getTranslation(linkTranslationKey),
-        clickEvent -> UI.getCurrent().getPage().executeJs("window.location.replace(\"" + url + "\");"));
+        clickEvent ->  UI.getCurrent().getPage().setLocation(url));
   }
 }

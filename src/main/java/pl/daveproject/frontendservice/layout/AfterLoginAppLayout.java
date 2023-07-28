@@ -14,9 +14,7 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
 import pl.daveproject.frontendservice.EmptyView;
-import pl.daveproject.frontendservice.StartView;
 import pl.daveproject.frontendservice.applicationUser.ApplicationUserService;
 import pl.daveproject.frontendservice.component.WebdietNotification;
 import pl.daveproject.frontendservice.component.type.WebdietNotificationType;
@@ -66,10 +64,8 @@ public class AfterLoginAppLayout extends AbstractAppLayout {
             //TODO: Create application settings view
             UI.getCurrent().navigate(EmptyView.class);
         });
-        subMenu.addItem(getTranslation("avatar.logout"), e -> {
-            //TODO: Implement logout logic
-            UI.getCurrent().navigate(StartView.class);
-        });
+        subMenu.addItem(getTranslation("avatar.logout"), e ->
+            UI.getCurrent().getPage().setLocation("/logout"));
         return menuBar;
     }
 

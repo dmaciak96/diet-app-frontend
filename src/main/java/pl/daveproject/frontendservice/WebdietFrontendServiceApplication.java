@@ -6,7 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-//@Theme(value = Lumo.DARK)
 @PWA(name = "Webdiet", shortName = "Webdiet")
 public class WebdietFrontendServiceApplication implements AppShellConfigurator {
 

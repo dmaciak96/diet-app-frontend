@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Component;
@@ -23,7 +25,7 @@ public class KeycloakLogoutHandler implements LogoutHandler {
   @Override
   public void logout(HttpServletRequest request, HttpServletResponse response,
       Authentication authentication) {
-    var user = (OidcUser) authentication;
+    var user = (DefaultOidcUser) authentication.getPrincipal();
     var builder = UriComponentsBuilder
         .fromUriString(LOGOUT_ENDPOINT.formatted(user.getIssuer()))
         .queryParam("id_token_hint", user.getIdToken().getTokenValue());
