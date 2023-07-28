@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.applicationUser;
+package pl.daveproject.frontendservice.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,7 @@ import pl.daveproject.frontendservice.exception.UserNotLoginException;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ApplicationUserService {
+public class UserService {
 
     public DefaultOidcUser getCurrentUser() {
         var authentication= SecurityContextHolder.getContext().getAuthentication();

@@ -1,6 +1,5 @@
 package pl.daveproject.frontendservice.product.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import pl.daveproject.frontendservice.applicationUser.ApplicationUserService;
+import pl.daveproject.frontendservice.user.UserService;
 import pl.daveproject.frontendservice.product.model.Product;
 import reactor.core.publisher.Mono;
 
@@ -21,10 +20,10 @@ public class ProductService {
     private static final String PRODUCTS_ENDPOINT_WITH_ID = "/products/{productId}";
 
     private final WebClient webClient;
-    private final ApplicationUserService applicationUserService;
+    private final UserService userService;
 
     public List<Product> findAll() {
-        var token = applicationUserService.getCurrentToken();
+        var token = userService.getCurrentToken();
         var products = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path(PRODUCTS_ENDPOINT)
@@ -49,7 +48,7 @@ public class ProductService {
         if(product.getParameters() == null) {
             product.setParameters(List.of());
         }
-        var token = applicationUserService.getCurrentToken();
+        var token = userService.getCurrentToken();
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
                         .path(PRODUCTS_ENDPOINT)
@@ -62,7 +61,7 @@ public class ProductService {
     }
 
     private Product update(Product product) {
-        var token = applicationUserService.getCurrentToken();
+        var token = userService.getCurrentToken();
         return webClient.put()
                 .uri(PRODUCTS_ENDPOINT_WITH_ID, product.getId())
                 .body(Mono.just(product), Product.class)
@@ -73,7 +72,7 @@ public class ProductService {
     }
 
     public void delete(UUID id) {
-        var token = applicationUserService.getCurrentToken();
+        var token = userService.getCurrentToken();
         webClient.delete()
                 .uri(PRODUCTS_ENDPOINT_WITH_ID, id)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)

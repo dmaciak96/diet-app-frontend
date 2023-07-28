@@ -15,7 +15,7 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import lombok.extern.slf4j.Slf4j;
 import pl.daveproject.frontendservice.EmptyView;
-import pl.daveproject.frontendservice.applicationUser.ApplicationUserService;
+import pl.daveproject.frontendservice.user.UserService;
 import pl.daveproject.frontendservice.component.WebdietNotification;
 import pl.daveproject.frontendservice.component.type.WebdietNotificationType;
 import pl.daveproject.frontendservice.dashboard.DashboardView;
@@ -27,11 +27,11 @@ import pl.daveproject.frontendservice.shoppinglist.ShoppingListView;
 @Slf4j
 public class AfterLoginAppLayout extends AbstractAppLayout {
 
-    private final ApplicationUserService applicationUserService;
+    private final UserService userService;
 
-    public AfterLoginAppLayout(ApplicationUserService applicationUserService) {
+    public AfterLoginAppLayout(UserService userService) {
         super(true);
-        this.applicationUserService = applicationUserService;
+        this.userService = userService;
         addToNavbar(createAvatar());
         addToDrawer(getMenuTabs());
     }
@@ -39,7 +39,7 @@ public class AfterLoginAppLayout extends AbstractAppLayout {
     private HorizontalLayout createAvatar() {
         var avatar = new Avatar();
         try {
-            var currentUser = applicationUserService.getCurrentUser();
+            var currentUser = userService.getCurrentUser();
             avatar = new Avatar(currentUser.getFullName());
         } catch (UserNotLoginException e) {
             WebdietNotification.show(getTranslation("error-message.user-not-login"), WebdietNotificationType.ERROR);
