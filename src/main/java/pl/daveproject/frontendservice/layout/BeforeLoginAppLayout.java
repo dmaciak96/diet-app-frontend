@@ -7,7 +7,6 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import org.springframework.beans.factory.annotation.Value;
-import pl.daveproject.frontendservice.registration.RegistrationView;
 
 public class BeforeLoginAppLayout extends AbstractAppLayout {
 
@@ -27,14 +26,7 @@ public class BeforeLoginAppLayout extends AbstractAppLayout {
     routerLinksLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
 
     routerLinksLayout.add(createRouterLink("login-page.login", authorizationEndpoint));
-    routerLinksLayout.add(createRouterLink("register-page.sign-up", RegistrationView.class));
     return routerLinksLayout;
-  }
-
-  private Button createRouterLink(String linkTranslationKey,
-      Class<? extends Component> navigationTarget) {
-    return new Button(getTranslation(linkTranslationKey),
-        clickEvent -> UI.getCurrent().navigate(navigationTarget));
   }
 
   private Button createRouterLink(String linkTranslationKey, String url) {
