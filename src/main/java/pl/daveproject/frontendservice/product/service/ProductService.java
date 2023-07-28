@@ -1,5 +1,6 @@
 package pl.daveproject.frontendservice.product.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import pl.daveproject.frontendservice.applicationUser.ApplicationUserService;
 import pl.daveproject.frontendservice.product.model.Product;
-import pl.daveproject.frontendservice.product.model.ProductResponse;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -25,15 +25,16 @@ public class ProductService {
 
     public List<Product> findAll() {
         var token = applicationUserService.getCurrentToken();
-        return webClient.get()
+        var products = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path(PRODUCTS_ENDPOINT)
                         .build())
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .retrieve()
-                .bodyToMono(ProductResponse.class)
-                .map(response -> response.getEmbedded().getProducts())
+                .bodyToFlux(Product.class)
+                .collectList()
                 .block();
+        return products;
     }
 
     public Product saveOrUpdate(Product product) {
@@ -45,6 +46,9 @@ public class ProductService {
     }
 
     private Product save(Product product) {
+        if(product.getParameters() == null) {
+            product.setParameters(List.of());
+        }
         var token = applicationUserService.getCurrentToken();
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
