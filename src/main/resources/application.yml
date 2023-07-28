@@ -14,3 +14,22 @@ jwt:
   cookie:
     expiration:
       seconds: 3600
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: webdiet-ui
+            client-secret: ZRhdBMdrl5Rm03DvuUt3oN0OxDrFEWOp
+            authorization-grant-type: authorization_code
+            scope: openid, profile
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8081/realms/webdiet
+            user-name-attribute: preferred_username
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/realms/webdiet
+      redirect-uri: http://localhost:8080/*

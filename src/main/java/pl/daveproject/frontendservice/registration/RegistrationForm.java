@@ -18,6 +18,7 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+import java.io.IOException;
 import lombok.Getter;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -27,8 +28,6 @@ import pl.daveproject.frontendservice.applicationUser.model.Gender;
 import pl.daveproject.frontendservice.component.WebdietNotification;
 import pl.daveproject.frontendservice.component.WebdietPhotoFileUpload;
 import pl.daveproject.frontendservice.component.type.WebdietNotificationType;
-
-import java.io.IOException;
 
 public class RegistrationForm extends FormLayout {
 

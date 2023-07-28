@@ -4,18 +4,20 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import pl.daveproject.frontendservice.StartView;
 import pl.daveproject.frontendservice.applicationUser.ApplicationUserService;
 import pl.daveproject.frontendservice.applicationUser.model.ApplicationUser;
 import pl.daveproject.frontendservice.component.WebdietFormWrapper;
 import pl.daveproject.frontendservice.component.WebdietNotification;
 import pl.daveproject.frontendservice.component.type.WebdietNotificationType;
 import pl.daveproject.frontendservice.layout.BeforeLoginAppLayout;
-import pl.daveproject.frontendservice.login.LoginView;
 
 @Slf4j
+@AnonymousAllowed
 @Route(value = "/register", layout = BeforeLoginAppLayout.class)
 public class RegistrationView extends VerticalLayout implements HasDynamicTitle {
 
@@ -31,7 +33,7 @@ public class RegistrationView extends VerticalLayout implements HasDynamicTitle 
                 new RegistrationForm(ApplicationUser.builder().build()));
         add(registrationForm);
         registerUserOnSave();
-        redirectToLoginPageOnClose();
+        redirectToStartPageOnClose();
     }
 
     @Override
@@ -45,7 +47,7 @@ public class RegistrationView extends VerticalLayout implements HasDynamicTitle 
             try {
                 log.info("Registering new User: {}", e.getApplicationUser().getEmail());
                 applicationUserService.registerUser(e.getApplicationUser());
-                UI.getCurrent().navigate(LoginView.class);
+                UI.getCurrent().navigate(StartView.class);
             } catch (WebClientResponseException ex) {
                 if (ex.getStatusCode() == HttpStatusCode.valueOf(409)) {
                     WebdietNotification.show(getTranslation("register-page.email-already-exists-error-message"),
@@ -58,8 +60,8 @@ public class RegistrationView extends VerticalLayout implements HasDynamicTitle 
         });
     }
 
-    private void redirectToLoginPageOnClose() {
+    private void redirectToStartPageOnClose() {
         var form = (RegistrationForm) registrationForm.getFormLayout();
-        form.addCloseListener(e -> UI.getCurrent().navigate(LoginView.class));
+        form.addCloseListener(e -> UI.getCurrent().navigate(StartView.class));
     }
 }

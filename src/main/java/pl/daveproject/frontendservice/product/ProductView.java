@@ -3,12 +3,14 @@ package pl.daveproject.frontendservice.product;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.PermitAll;
 import pl.daveproject.frontendservice.component.DeleteConfirmDialog;
 import pl.daveproject.frontendservice.component.grid.CrudGrid;
 import pl.daveproject.frontendservice.layout.AfterLoginAppLayout;
 import pl.daveproject.frontendservice.product.model.Product;
 import pl.daveproject.frontendservice.product.service.ProductService;
 
+@PermitAll
 @Route(value = "/products", layout = AfterLoginAppLayout.class)
 public class ProductView extends VerticalLayout implements HasDynamicTitle {
 
