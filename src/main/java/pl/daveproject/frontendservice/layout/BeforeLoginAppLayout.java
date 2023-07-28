@@ -6,18 +6,17 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import pl.daveproject.frontendservice.registration.RegistrationView;
 
 public class BeforeLoginAppLayout extends AbstractAppLayout {
 
+  private final String authorizationEndpoint;
+
   public BeforeLoginAppLayout(
-      @Value("${spring.security.oauth2.client.provider.keycloak.issuer-uri}") String keycloakUrl,
-      @Value("${spring.security.oauth2.client.registration.keycloak.client-id}") String clientId,
-      @Value("${spring.security.oauth2.client.registration.keycloak.scope}") List<String> scopes,
-      @Value("${spring.security.oauth2.redirect-uri}") String redirectUri) {
+      @Value("${keycloak.authorization-endpoint}") String authorizationEndpoint) {
     super();
+    this.authorizationEndpoint = authorizationEndpoint;
     addToNavbar(createRouterLinks());
   }
 
@@ -27,7 +26,7 @@ public class BeforeLoginAppLayout extends AbstractAppLayout {
     routerLinksLayout.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
     routerLinksLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
 
-    routerLinksLayout.add(createRouterLink("login-page.login", "/login"));
+    routerLinksLayout.add(createRouterLink("login-page.login", authorizationEndpoint));
     routerLinksLayout.add(createRouterLink("register-page.sign-up", RegistrationView.class));
     return routerLinksLayout;
   }
@@ -40,6 +39,6 @@ public class BeforeLoginAppLayout extends AbstractAppLayout {
 
   private Button createRouterLink(String linkTranslationKey, String url) {
     return new Button(getTranslation(linkTranslationKey),
-        clickEvent ->  UI.getCurrent().getPage().setLocation(url));
+        clickEvent -> UI.getCurrent().getPage().setLocation(url));
   }
 }

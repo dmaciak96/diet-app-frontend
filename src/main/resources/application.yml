@@ -14,7 +14,8 @@ jwt:
   cookie:
     expiration:
       seconds: 3600
-
+keycloak:
+  authorization-endpoint: /oauth2/authorization/keycloak
 spring:
   security:
     oauth2:
