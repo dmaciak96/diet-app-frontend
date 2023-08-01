@@ -26,7 +26,10 @@ public class SecurityConfiguration extends VaadinWebSecurity {
                         token -> token.jwtAuthenticationConverter(jwtAuthenticationConverter)))
                 .logout(logout -> logout.addLogoutHandler(keycloakLogoutHandler)
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/"));
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID"));
         super.configure(http);
     }
 }
