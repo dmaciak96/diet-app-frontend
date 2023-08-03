@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import pl.daveproject.frontendservice.product.model.Product;
+import pl.daveproject.frontendservice.product.service.ProductService;
 import pl.daveproject.frontendservice.recipe.model.Recipe;
 import pl.daveproject.frontendservice.recipe.model.RecipeProductEntry;
 import pl.daveproject.frontendservice.recipe.model.RecipeProductEntryRequest;
@@ -24,6 +26,7 @@ public class RecipeService {
 
   private final WebClient webClient;
   private final UserService userService;
+  private final ProductService productService;
 
   public List<Recipe> findAll() {
     var token = userService.getCurrentToken();
@@ -39,6 +42,14 @@ public class RecipeService {
   }
 
   public Recipe saveOrUpdate(Recipe recipe) {
+    var products = productService.findAll();
+    for (var productEntry : recipe.getProducts()) {
+      var product = products.stream().filter(p -> p.getName()
+          .equalsIgnoreCase(productEntry.getProduct().getName()))
+          .findFirst()
+          .orElseThrow();
+      productEntry.setProduct(product);
+    }
     if (recipe.getId() == null) {
       return save(recipe);
     } else {
@@ -103,4 +114,28 @@ public class RecipeService {
   }
 
 
+  public List<Product> getNotExistingProducts(List<RecipeProductEntry> recipeProductEntries) {
+    var allProductNames = getAllExistingProductNames();
+    return recipeProductEntries.stream()
+        .filter(recipeProductEntry -> !allProductNames.contains(
+            recipeProductEntry.getProduct().getName().toLowerCase()))
+        .map(recipeProductEntry -> Product.builder()
+            .name(recipeProductEntry.getProduct().getName())
+            .build())
+        .toList();
+  }
+
+  public boolean isAllProductExists(List<RecipeProductEntry> recipeProductEntries) {
+    var allProductNames = getAllExistingProductNames();
+    return recipeProductEntries.stream()
+        .map(recipeProductEntry -> recipeProductEntry.getProduct().getName().toLowerCase())
+        .allMatch(allProductNames::contains);
+  }
+
+  private List<String> getAllExistingProductNames() {
+    return productService.findAll()
+        .stream()
+        .map(e -> e.getName().toLowerCase())
+        .toList();
+  }
 }

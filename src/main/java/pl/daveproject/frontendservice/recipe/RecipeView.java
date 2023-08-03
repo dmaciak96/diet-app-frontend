@@ -10,7 +10,7 @@ import pl.daveproject.frontendservice.component.DeleteConfirmDialog;
 import pl.daveproject.frontendservice.component.ViewDetailsButton;
 import pl.daveproject.frontendservice.component.grid.CrudGrid;
 import pl.daveproject.frontendservice.layout.AfterLoginAppLayout;
-import pl.daveproject.frontendservice.product.ProductDialog;
+import pl.daveproject.frontendservice.product.service.ProductService;
 import pl.daveproject.frontendservice.recipe.model.Recipe;
 import pl.daveproject.frontendservice.recipe.service.RecipeService;
 
@@ -19,11 +19,13 @@ import pl.daveproject.frontendservice.recipe.service.RecipeService;
 public class RecipeView extends VerticalLayout implements HasDynamicTitle {
 
   private final RecipeService recipeService;
+  private final ProductService productService;
   private final CrudGrid<Recipe, RecipeFilter> recipeGrid;
 
   public RecipeView(RecipeService recipeService,
-      RecipeFilter recipeFilter,
+      ProductService productService, RecipeFilter recipeFilter,
       RecipeDataProvider recipeDataProvider) {
+    this.productService = productService;
     this.recipeGrid = new CrudGrid<>(recipeDataProvider, recipeFilter);
     this.recipeService = recipeService;
 
@@ -82,7 +84,7 @@ public class RecipeView extends VerticalLayout implements HasDynamicTitle {
   }
 
   private void createAndOpenRecipeDialog(Recipe recipe) {
-    var recipeDialog = new RecipeDialog(recipeService, recipe);
+    var recipeDialog = new RecipeDialog(recipeService, recipe, productService);
     add(recipeDialog);
     recipeDialog.open();
     recipeDialog.addOpenedChangeListener(e -> {

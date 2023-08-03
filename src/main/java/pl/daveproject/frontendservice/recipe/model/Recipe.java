@@ -46,7 +46,7 @@ public class Recipe {
 
   private double getKcalForProduct(RecipeProductEntry recipeProductEntry) {
     if (recipeProductEntry == null || recipeProductEntry.getProduct() == null
-        || recipeProductEntry.getProduct().getKcal() == null) {
+        || recipeProductEntry.getProduct().getKcal() == null || recipeProductEntry.getAmountInGrams() == null) {
       return 0.0;
     }
     return (recipeProductEntry.getAmountInGrams()

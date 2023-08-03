@@ -17,6 +17,7 @@ public class CloseableDialog extends Dialog {
                 (e) -> this.close());
         closeButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
         this.getHeader().add(closeButton);
+        this.setWidth("50%");
     }
 
     public CloseableDialog(String translationKey) {
