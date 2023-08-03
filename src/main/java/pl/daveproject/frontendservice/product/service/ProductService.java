@@ -24,7 +24,7 @@ public class ProductService {
 
     public List<Product> findAll() {
         var token = userService.getCurrentToken();
-        var products = webClient.get()
+        return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path(PRODUCTS_ENDPOINT)
                         .build())
@@ -33,7 +33,6 @@ public class ProductService {
                 .bodyToFlux(Product.class)
                 .collectList()
                 .block();
-        return products;
     }
 
     public Product saveOrUpdate(Product product) {

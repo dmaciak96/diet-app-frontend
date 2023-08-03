@@ -27,7 +27,7 @@ public class ProductDataProvider extends AbstractBackEndDataProvider<Product, Pr
     protected Stream<Product> fetchFromBackEnd(Query<Product, ProductFilter> query) {
         var productsStream = productService.findAll().stream();
         if (query.getFilter().isPresent()) {
-            productsStream = productsStream.filter(person -> query.getFilter().get().match(person));
+            productsStream = productsStream.filter(product -> query.getFilter().get().match(product));
         }
 
         if (query.getSortOrders().size() > 0) {
