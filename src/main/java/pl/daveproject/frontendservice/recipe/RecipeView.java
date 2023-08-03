@@ -5,6 +5,7 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import pl.daveproject.frontendservice.component.DeleteConfirmDialog;
 import pl.daveproject.frontendservice.component.ViewDetailsButton;
@@ -70,7 +71,9 @@ public class RecipeView extends VerticalLayout implements HasDynamicTitle {
 
   private void setOnNewClickListener() {
     recipeGrid.addOnClickListener(event ->
-        createAndOpenRecipeDialog(Recipe.builder().build()));
+        createAndOpenRecipeDialog(Recipe.builder()
+            .products(List.of())
+            .build()));
   }
 
   private void setOnEditClickListener() {
