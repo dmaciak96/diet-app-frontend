@@ -62,14 +62,28 @@ public class RecipeForm extends FormLayout {
     add(description, 2);
     add(productsContainer, 2);
     createSubmitButtons();
+
+    for (var productEntry : recipe.getProducts()) {
+      addProductLayout(productEntry.getProduct().getName(), productEntry.getAmountInGrams());
+    }
   }
 
   private void addProductLayout() {
+    addProductLayout(null, null);
+  }
+
+  private void addProductLayout(String productNameVal, Double amountInGramsVal) {
     var productName = new TextField(getTranslation("products-page.grid-label-name"));
     productName.setWidth("50%");
     var amountInGrams = new NumberField(getTranslation("recipe-form-amount-in-grams"));
     amountInGrams.setWidth("50%");
     amountInGrams.setMin(0.0);
+    if (productNameVal != null) {
+      productName.setValue(productNameVal);
+    }
+    if (amountInGramsVal != null) {
+      amountInGrams.setValue(amountInGramsVal);
+    }
     var productLayout = new HorizontalLayout(productName, amountInGrams);
     productLayout.setWidthFull();
     productsContainer.add(productLayout);
