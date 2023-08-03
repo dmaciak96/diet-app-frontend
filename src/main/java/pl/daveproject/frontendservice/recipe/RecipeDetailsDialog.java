@@ -9,6 +9,6 @@ import pl.daveproject.frontendservice.recipe.model.Recipe;
 public class RecipeDetailsDialog extends CloseableDialog implements Translator {
 
   public RecipeDetailsDialog(Recipe recipe) {
-    super(recipe.getName());
+    super(recipe.getName(), false);
   }
 }

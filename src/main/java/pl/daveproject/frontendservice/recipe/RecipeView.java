@@ -1,6 +1,7 @@
 package pl.daveproject.frontendservice.recipe;
 
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
@@ -51,7 +52,7 @@ public class RecipeView extends VerticalLayout implements HasDynamicTitle {
         .setSortable(true)
         .setResizable(true);
 
-    recipeGrid.getGrid().addColumn(recipe -> {
+    recipeGrid.getGrid().addColumn(new ComponentRenderer<>(recipe -> {
           var viewDetailsButton = new ViewDetailsButton();
           viewDetailsButton.addClickListener(e -> {
             var recipeDetailsDialog = new RecipeDetailsDialog(recipe);
@@ -59,7 +60,7 @@ public class RecipeView extends VerticalLayout implements HasDynamicTitle {
             recipeDetailsDialog.open();
           });
           return viewDetailsButton;
-        })
+        }))
         .setHeader(StringUtils.EMPTY)
         .setSortable(false)
         .setResizable(false);
@@ -102,7 +103,8 @@ public class RecipeView extends VerticalLayout implements HasDynamicTitle {
   }
 
   private void createAndOpenProductDeleteDialog(Recipe recipe) {
-    var confirmDialogSuffix = "%s \"%s\"".formatted(getTranslation("delete-dialog.header-recipe-suffix"),
+    var confirmDialogSuffix = "%s \"%s\"".formatted(
+        getTranslation("delete-dialog.header-recipe-suffix"),
         recipe.getName());
     var confirmDialog = new DeleteConfirmDialog(confirmDialogSuffix);
     confirmDialog.open();

@@ -8,6 +8,9 @@ import org.apache.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import pl.daveproject.frontendservice.recipe.model.Recipe;
+import pl.daveproject.frontendservice.recipe.model.RecipeProductEntry;
+import pl.daveproject.frontendservice.recipe.model.RecipeProductEntryRequest;
+import pl.daveproject.frontendservice.recipe.model.RecipeRequest;
 import pl.daveproject.frontendservice.user.UserService;
 import reactor.core.publisher.Mono;
 
@@ -15,6 +18,7 @@ import reactor.core.publisher.Mono;
 @Service
 @RequiredArgsConstructor
 public class RecipeService {
+
   private static final String RECIPES_ENDPOINT = "/recipes";
   private static final String RECIPES_ENDPOINT_WITH_ID = "/recipes/{productId}";
 
@@ -43,7 +47,7 @@ public class RecipeService {
   }
 
   private Recipe save(Recipe recipe) {
-    if(recipe.getProducts() == null) {
+    if (recipe.getProducts() == null) {
       recipe.setProducts(List.of());
     }
     var token = userService.getCurrentToken();
@@ -51,7 +55,7 @@ public class RecipeService {
         .uri(uriBuilder -> uriBuilder
             .path(RECIPES_ENDPOINT)
             .build())
-        .body(Mono.just(recipe), Recipe.class)
+        .body(Mono.just(toRequest(recipe)), RecipeRequest.class)
         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
         .retrieve()
         .bodyToMono(Recipe.class)
@@ -62,7 +66,7 @@ public class RecipeService {
     var token = userService.getCurrentToken();
     return webClient.put()
         .uri(RECIPES_ENDPOINT_WITH_ID, recipe.getId())
-        .body(Mono.just(recipe), Recipe.class)
+        .body(Mono.just(toRequest(recipe)), RecipeRequest.class)
         .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
         .retrieve()
         .bodyToMono(Recipe.class)
@@ -78,4 +82,25 @@ public class RecipeService {
         .bodyToMono(Recipe.class)
         .block();
   }
+
+  private RecipeRequest toRequest(Recipe recipe) {
+    return RecipeRequest.builder()
+        .description(recipe.getDescription())
+        .name(recipe.getName())
+        .type(recipe.getType())
+        .products(recipe.getProducts().stream()
+            .map(this::toProductEntryRequest)
+            .toList())
+        .build();
+  }
+
+  private RecipeProductEntryRequest toProductEntryRequest(RecipeProductEntry
+      recipeProductEntry) {
+    return RecipeProductEntryRequest.builder()
+        .productId(recipeProductEntry.getProduct().getId())
+        .amountInGrams(recipeProductEntry.getAmountInGrams())
+        .build();
+  }
+
+
 }

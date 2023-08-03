@@ -1,5 +1,8 @@
 package pl.daveproject.frontendservice.recipe.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -17,12 +20,18 @@ public class Recipe {
 
   private UUID id;
 
+  @NotBlank
+  @Size(min = 1, max = 255)
   private String name;
 
+  @NotBlank
+  @Size(min = 1, max = 2550)
   private String description;
 
+  @NotNull
   private RecipeType type;
 
+  @NotNull
   private List<RecipeProductEntry> products;
 
   public double getKcal() {

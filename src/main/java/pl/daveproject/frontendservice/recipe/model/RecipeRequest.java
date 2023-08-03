@@ -21,11 +21,11 @@ import lombok.Setter;
 public class RecipeRequest {
 
   @NotBlank
-  @Size
+  @Size(min = 1, max = 255)
   private String name;
 
   @NotBlank
-  @Size
+  @Size(min = 1, max = 2550)
   private String description;
 
   @NotNull

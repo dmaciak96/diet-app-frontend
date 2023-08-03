@@ -7,11 +7,19 @@ import com.vaadin.flow.component.icon.Icon;
 
 public class CloseableDialog extends Dialog {
 
-    public CloseableDialog(String titleTranslationKey) {
-        this.setHeaderTitle(getTranslation(titleTranslationKey));
+    public CloseableDialog(String title, boolean isTranslationKey) {
+        if(isTranslationKey) {
+            this.setHeaderTitle(getTranslation(title));
+        } else {
+            this.setHeaderTitle(title);
+        }
         var closeButton = new Button(new Icon("lumo", "cross"),
                 (e) -> this.close());
         closeButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
         this.getHeader().add(closeButton);
+    }
+
+    public CloseableDialog(String translationKey) {
+        this(translationKey, true);
     }
 }
