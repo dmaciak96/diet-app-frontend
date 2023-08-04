@@ -14,8 +14,6 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import lombok.extern.slf4j.Slf4j;
-import pl.daveproject.frontendservice.EmptyView;
-import pl.daveproject.frontendservice.user.UserService;
 import pl.daveproject.frontendservice.component.WebdietNotification;
 import pl.daveproject.frontendservice.component.type.WebdietNotificationType;
 import pl.daveproject.frontendservice.dashboard.DashboardView;
@@ -23,6 +21,7 @@ import pl.daveproject.frontendservice.exception.UserNotLoginException;
 import pl.daveproject.frontendservice.product.ProductView;
 import pl.daveproject.frontendservice.recipe.RecipeView;
 import pl.daveproject.frontendservice.shoppinglist.ShoppingListView;
+import pl.daveproject.frontendservice.user.UserService;
 
 @Slf4j
 public class AfterLoginAppLayout extends AbstractAppLayout {
@@ -60,10 +59,6 @@ public class AfterLoginAppLayout extends AbstractAppLayout {
         var menuBar = new MenuBar();
         menuBar.addThemeVariants(MenuBarVariant.LUMO_TERTIARY_INLINE);
         var subMenu = menuBar.addItem(avatar).getSubMenu();
-        subMenu.addItem(getTranslation("avatar.settings"), e -> {
-            //TODO: Create application settings view
-            UI.getCurrent().navigate(EmptyView.class);
-        });
         subMenu.addItem(getTranslation("avatar.logout"), e ->
             UI.getCurrent().getPage().setLocation("/logout"));
         return menuBar;
