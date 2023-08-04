@@ -29,7 +29,7 @@ public class ShoppingListView extends VerticalLayout implements HasDynamicTitle 
       ShoppingListFilter shoppingListFilter, RecipeDataProvider recipeDataProvider) {
     this.shoppingListService = shoppingListService;
     this.recipeDataProvider = recipeDataProvider;
-    this.shoppingListGrid = new CrudGrid<>(shoppingListDataProvider, shoppingListFilter);
+    this.shoppingListGrid = new CrudGrid<>(shoppingListDataProvider, shoppingListFilter, false);
 
     createGridColumns();
     setOnNewClickListener();

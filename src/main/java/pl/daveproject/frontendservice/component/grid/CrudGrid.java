@@ -25,11 +25,15 @@ public class CrudGrid<MODEL, FILTER extends GridDataFilter> extends VerticalLayo
     private final FILTER dataFilter;
 
     public CrudGrid(AbstractBackEndDataProvider<MODEL, FILTER> dataProvider, FILTER dataFilter) {
+        this(dataProvider, dataFilter, true);
+    }
+
+    public CrudGrid(AbstractBackEndDataProvider<MODEL, FILTER> dataProvider, FILTER dataFilter, boolean hasEditBtn) {
         this.dataFilter = dataFilter;
         this.dataProvider = dataProvider;
         this.filterDataProvider = dataProvider.withConfigurableFilter();
         this.grid = createGrid();
-        this.toolbar = new CrudToolbar();
+        this.toolbar = new CrudToolbar(hasEditBtn);
         add(toolbar, createSearchTextField(), grid);
     }
 
