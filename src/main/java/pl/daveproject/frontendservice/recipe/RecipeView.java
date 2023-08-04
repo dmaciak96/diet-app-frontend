@@ -103,11 +103,11 @@ public class RecipeView extends VerticalLayout implements HasDynamicTitle {
           .getSelectedItems()
           .stream()
           .findFirst();
-      selectedProduct.ifPresent(this::createAndOpenProductDeleteDialog);
+      selectedProduct.ifPresent(this::createAndOpenDeleteDialog);
     });
   }
 
-  private void createAndOpenProductDeleteDialog(Recipe recipe) {
+  private void createAndOpenDeleteDialog(Recipe recipe) {
     var confirmDialogSuffix = "%s \"%s\"".formatted(
         getTranslation("delete-dialog.header-recipe-suffix"),
         recipe.getName());
