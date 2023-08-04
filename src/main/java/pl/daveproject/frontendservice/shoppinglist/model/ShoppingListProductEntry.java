@@ -22,4 +22,11 @@ public class ShoppingListProductEntry {
   private Double amountInGrams;
 
   private Product product;
+
+  public double getRoundedAmountInGrams() {
+    if (amountInGrams == null) {
+      return 0.0;
+    }
+    return (double) Math.round(amountInGrams * 100) / 100;
+  }
 }

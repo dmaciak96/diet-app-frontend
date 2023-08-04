@@ -15,6 +15,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+import com.vaadin.flow.theme.lumo.LumoUtility.Margin.Top;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import pl.daveproject.frontendservice.component.ViewDetailsButton;
@@ -57,6 +58,7 @@ public class ShoppingListForm extends FormLayout {
     recipeGrid.setItems(recipeDataProvider.withConfigurableFilter());
     recipeGrid.addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);
     recipeGrid.setSelectionMode(Grid.SelectionMode.MULTI);
+    recipeGrid.addClassNames(Top.MEDIUM);
     recipeGrid.addSelectionListener(selectedRecipes ->
         binder.getBean().setRecipes(selectedRecipes.getAllSelectedItems().stream().toList()));
 
@@ -65,7 +67,7 @@ public class ShoppingListForm extends FormLayout {
         .setSortable(true)
         .setResizable(true);
 
-    recipeGrid.addColumn(recipe -> (double) Math.round(recipe.getKcal() * 100) / 100,
+    recipeGrid.addColumn(Recipe::getRoundedKcal,
             RecipeDataProvider.KCAL_SORTING_KEY)
         .setHeader(getTranslation("recipes-page.grid-label-kcal"))
         .setSortable(true)

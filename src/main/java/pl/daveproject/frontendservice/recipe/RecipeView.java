@@ -43,7 +43,7 @@ public class RecipeView extends VerticalLayout implements HasDynamicTitle {
         .setSortable(true)
         .setResizable(true);
 
-    recipeGrid.getGrid().addColumn(recipe -> (double) Math.round(recipe.getKcal() * 100) / 100,
+    recipeGrid.getGrid().addColumn(Recipe::getRoundedKcal,
             RecipeDataProvider.KCAL_SORTING_KEY)
         .setHeader(getTranslation("recipes-page.grid-label-kcal"))
         .setSortable(true)

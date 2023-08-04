@@ -26,4 +26,15 @@ public class ShoppingList {
   private List<Recipe> recipes;
 
   private List<ShoppingListProductEntry> products;
+
+  public double getKcal() {
+    if (recipes == null || recipes.isEmpty()) {
+      return 0.0;
+    }
+    var kcal = recipes.stream()
+        .map(Recipe::getKcal)
+        .reduce(Double::sum)
+        .orElse(0.0);
+    return (double) Math.round(kcal * 100) / 100;
+  }
 }

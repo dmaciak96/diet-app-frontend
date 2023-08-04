@@ -23,4 +23,11 @@ public class RecipeProductEntry {
   private Product product;
 
   private Double amountInGrams;
+
+  public double getRoundedAmountInGrams() {
+    if (amountInGrams == null) {
+      return 0.0;
+    }
+    return (double) Math.round(amountInGrams * 100) / 100;
+  }
 }

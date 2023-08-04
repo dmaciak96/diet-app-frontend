@@ -44,6 +44,10 @@ public class Recipe {
         .orElse(0.0);
   }
 
+  public double getRoundedKcal() {
+    return (double) Math.round(getKcal() * 100) / 100;
+  }
+
   private double getKcalForProduct(RecipeProductEntry recipeProductEntry) {
     if (recipeProductEntry == null || recipeProductEntry.getProduct() == null
         || recipeProductEntry.getProduct().getKcal() == null || recipeProductEntry.getAmountInGrams() == null) {
