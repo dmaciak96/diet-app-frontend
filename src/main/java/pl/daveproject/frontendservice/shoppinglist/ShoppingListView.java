@@ -61,7 +61,7 @@ public class ShoppingListView extends VerticalLayout implements HasDynamicTitle 
 
   private void setOnNewClickListener() {
     shoppingListGrid.addOnClickListener(event ->
-        createAndOpenRecipeDialog(ShoppingListDialogModel.builder()
+        createAndOpenShoppingListDialog(ShoppingListDialogModel.builder()
             .recipes(List.of())
             .build()));
   }
@@ -73,11 +73,11 @@ public class ShoppingListView extends VerticalLayout implements HasDynamicTitle 
           .stream()
           .findFirst();
       selectedProduct.ifPresent(
-          e -> createAndOpenRecipeDialog(shoppingListService.toDialogModel(e)));
+          e -> createAndOpenShoppingListDialog(shoppingListService.toDialogModel(e)));
     });
   }
 
-  private void createAndOpenRecipeDialog(ShoppingListDialogModel shoppingListDialogModel) {
+  private void createAndOpenShoppingListDialog(ShoppingListDialogModel shoppingListDialogModel) {
     var shoppingListDialog = new ShoppingListDialog(shoppingListService, shoppingListDialogModel, recipeDataProvider);
     add(shoppingListDialog);
     shoppingListDialog.open();
@@ -90,11 +90,11 @@ public class ShoppingListView extends VerticalLayout implements HasDynamicTitle 
 
   private void setOnDeleteClickListener() {
     shoppingListGrid.deleteOnClickListener(event -> {
-      var selectedProduct = shoppingListGrid.getGrid()
+      var selected = shoppingListGrid.getGrid()
           .getSelectedItems()
           .stream()
           .findFirst();
-      selectedProduct.ifPresent(this::createAndOpenDeleteDialog);
+      selected.ifPresent(this::createAndOpenDeleteDialog);
     });
   }
 
