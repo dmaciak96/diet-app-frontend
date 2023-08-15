@@ -19,10 +19,10 @@ public class BmiDialog extends CloseableDialog implements Translator {
         this.bmiService = bmiService;
         this.bmiForm = new WebdietFormWrapper(new BmiForm(bmi), false);
         add(bmiForm);
-        saveOrUpdateBmiOnSave();
+        saveBmiOnSave();
     }
 
-    private void saveOrUpdateBmiOnSave() {
+    private void saveBmiOnSave() {
         var form = (BmiForm) bmiForm.getFormLayout();
         form.addSaveListener(e -> {
             log.info("Creating BMI: {}", e.getBmi().getId());

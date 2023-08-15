@@ -30,7 +30,7 @@ public class BmiDataProvider extends AbstractBackEndDataProvider<Bmi, BmiFilter>
     protected Stream<Bmi> fetchFromBackEnd(Query<Bmi, BmiFilter> query) {
         var stream = bmiService.findAll().stream();
         if (query.getFilter().isPresent()) {
-            stream = stream.filter(recipe -> query.getFilter().get().match(recipe));
+            stream = stream.filter(bmi -> query.getFilter().get().match(bmi));
         }
 
         if (query.getSortOrders().size() > 0) {
@@ -61,7 +61,7 @@ public class BmiDataProvider extends AbstractBackEndDataProvider<Bmi, BmiFilter>
             case HEIGHT_SORTING_KEY -> Comparator.comparing(Bmi::getHeight);
             case VALUE_SORTING_KEY -> Comparator.comparing(Bmi::getValue);
             case ADDED_DATE_SORTING_KEY -> Comparator.comparing(Bmi::getAddedDate);
-            case RATE_SORTING_KEY -> Comparator.comparing(Bmi::getRate);
+            case RATE_SORTING_KEY -> Comparator.comparing(bmi -> getTranslation(bmi.getRate().getTranslationKey()));
             default -> (p1, p2) -> 0;
         };
     }

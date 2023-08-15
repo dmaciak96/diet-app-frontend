@@ -50,8 +50,8 @@ public class BmiView extends VerticalLayout implements HasDynamicTitle {
 
         bmiGrid.getGrid()
                 .addColumn(e -> switch (e.getUnit()) {
-                            case METRIC -> e.getWeight() + "kg";
-                            case IMPERIAL -> e.getWeight() + "lbs";
+                            case METRIC -> e.getWeight() + " kg";
+                            case IMPERIAL -> e.getWeight() + " lbs";
                         },
                         BmiDataProvider.WEIGHT_SORTING_KEY)
                 .setHeader(getTranslation("bmi-view.weight"))
@@ -60,8 +60,8 @@ public class BmiView extends VerticalLayout implements HasDynamicTitle {
 
         bmiGrid.getGrid()
                 .addColumn(e -> switch (e.getUnit()) {
-                            case METRIC -> e.getHeight() + "m";
-                            case IMPERIAL -> e.getHeight() + "ft";
+                            case METRIC -> e.getHeight() + " m";
+                            case IMPERIAL -> e.getHeight() + " ft";
                         },
                         BmiDataProvider.HEIGHT_SORTING_KEY)
                 .setHeader(getTranslation("bmi-view.height"))
