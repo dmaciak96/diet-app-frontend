@@ -11,7 +11,9 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -36,6 +38,11 @@ public class BmiService {
                 .bodyToFlux(Bmi.class)
                 .collectList()
                 .block();
+    }
+
+    public Optional<Bmi> findLatest() {
+        return findAll().stream()
+                .max(Comparator.comparing(Bmi::getAddedDate));
     }
 
     public List<Bmi> findAllBetweenDates(LocalDate from, LocalDate to) {

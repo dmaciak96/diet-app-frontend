@@ -11,7 +11,9 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -36,6 +38,11 @@ public class TotalCaloricNeedsService {
                 .bodyToFlux(TotalCaloricNeeds.class)
                 .collectList()
                 .block();
+    }
+
+    public Optional<TotalCaloricNeeds> findLatest() {
+        return findAll().stream()
+                .max(Comparator.comparing(TotalCaloricNeeds::getAddedDate));
     }
 
     public List<TotalCaloricNeeds> findAllBetweenDates(LocalDate from, LocalDate to) {
