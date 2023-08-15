@@ -1,7 +1,5 @@
 package pl.daveproject.frontendservice.dashboard;
 
-import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -9,13 +7,10 @@ import com.vaadin.flow.router.HasDynamicTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import jakarta.annotation.security.PermitAll;
-import org.apache.commons.lang3.StringUtils;
 import pl.daveproject.frontendservice.bmi.model.BmiRate;
 import pl.daveproject.frontendservice.bmi.service.BmiService;
 import pl.daveproject.frontendservice.caloricneeds.service.TotalCaloricNeedsService;
 import pl.daveproject.frontendservice.layout.AfterLoginAppLayout;
-
-import java.awt.*;
 
 @PermitAll
 @Route(value = "/dashboard", layout = AfterLoginAppLayout.class)
