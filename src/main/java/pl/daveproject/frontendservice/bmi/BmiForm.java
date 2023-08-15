@@ -1,4 +1,4 @@
-package pl.daveproject.frontendservice.bmi.service;
+package pl.daveproject.frontendservice.bmi;
 
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;

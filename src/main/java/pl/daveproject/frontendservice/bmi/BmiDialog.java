@@ -2,7 +2,6 @@ package pl.daveproject.frontendservice.bmi;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.daveproject.frontendservice.bmi.model.Bmi;
-import pl.daveproject.frontendservice.bmi.service.BmiForm;
 import pl.daveproject.frontendservice.bmi.service.BmiService;
 import pl.daveproject.frontendservice.component.CloseableDialog;
 import pl.daveproject.frontendservice.component.Translator;
