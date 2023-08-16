@@ -31,7 +31,7 @@ public class AfterLoginAppLayout extends AbstractAppLayout {
     private final UserService userService;
 
     public AfterLoginAppLayout(UserService userService) {
-        super(true);
+        super(true, true);
         this.userService = userService;
         addToNavbar(createAvatar());
         addToDrawer(getMenuTabs());
