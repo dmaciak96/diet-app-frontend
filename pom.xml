@@ -10,7 +10,7 @@
     </parent>
     <groupId>pl.daveproject</groupId>
     <artifactId>frontend-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>webdiet-frontend-service</name>
     <description>webdiet-frontend-service</description>
     <properties>
