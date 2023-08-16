@@ -2,8 +2,9 @@
 FROM maven:3.6.3-openjdk-17-slim AS builder
 WORKDIR /webdiet-frontend
 COPY src ./src
+COPY frontend ./frontend
 COPY pom.xml ./
-RUN mvn -f ./pom.xml clean package
+RUN mvn -f ./pom.xml clean package -Pproduction -Dvaadin.force.production.build=true
 
 #Package stage
 FROM openjdk:22-slim-bullseye AS runner
