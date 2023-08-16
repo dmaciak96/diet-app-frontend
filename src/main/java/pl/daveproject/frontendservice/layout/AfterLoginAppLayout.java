@@ -14,6 +14,8 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import lombok.extern.slf4j.Slf4j;
+import pl.daveproject.frontendservice.bmi.BmiView;
+import pl.daveproject.frontendservice.caloricneeds.TotalCaloricNeedsView;
 import pl.daveproject.frontendservice.component.WebdietNotification;
 import pl.daveproject.frontendservice.component.type.WebdietNotificationType;
 import pl.daveproject.frontendservice.dashboard.DashboardView;
@@ -29,7 +31,7 @@ public class AfterLoginAppLayout extends AbstractAppLayout {
     private final UserService userService;
 
     public AfterLoginAppLayout(UserService userService) {
-        super(true);
+        super(true, true);
         this.userService = userService;
         addToNavbar(createAvatar());
         addToDrawer(getMenuTabs());
@@ -59,6 +61,10 @@ public class AfterLoginAppLayout extends AbstractAppLayout {
         var menuBar = new MenuBar();
         menuBar.addThemeVariants(MenuBarVariant.LUMO_TERTIARY_INLINE);
         var subMenu = menuBar.addItem(avatar).getSubMenu();
+        subMenu.addItem(getTranslation("bmi-view.title"), e ->
+                UI.getCurrent().navigate(BmiView.class));
+        subMenu.addItem(getTranslation("total-caloric-needs.title"), e ->
+                UI.getCurrent().navigate(TotalCaloricNeedsView.class));
         subMenu.addItem(getTranslation("avatar.logout"), e ->
             UI.getCurrent().getPage().setLocation("/logout"));
         return menuBar;
