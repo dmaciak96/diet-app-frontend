@@ -1,6 +1,6 @@
 app:
   name: Webdiet Frontend Service
-  version: @project.version@
+  version: dev
 
 logging:
   file:
