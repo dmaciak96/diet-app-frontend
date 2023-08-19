@@ -1,4 +1,4 @@
-FROM openjdk:22-slim-bullseye AS runner
+FROM openjdk:22-jdk-slim AS runner
 WORKDIR /webdiet-frontend
 COPY ./target/frontend-*.jar ./webdiet-frontend.jar
 COPY ./src/main/resources/application.yml ./application.yml
