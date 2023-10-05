@@ -1,6 +1,6 @@
 app:
   name: Webdiet Frontend Service
-  version: dev
+  version: 2.0.0
 
 logging:
   file:
@@ -10,12 +10,19 @@ route:
   url:
     backend: http://localhost:8090/api
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
 jwt:
   cookie:
     expiration:
       seconds: 3600
+
 keycloak:
   authorization-endpoint: /oauth2/authorization/keycloak
+
 spring:
   application:
     name: webdiet-frontend-service
