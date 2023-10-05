@@ -17,6 +17,8 @@ jwt:
 keycloak:
   authorization-endpoint: /oauth2/authorization/keycloak
 spring:
+  application:
+    name: webdiet-frontend-service
   security:
     oauth2:
       client:
