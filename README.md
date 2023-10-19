@@ -1,1 +1,1 @@
-# webdiet-frontend
+# diet-app-frontend
