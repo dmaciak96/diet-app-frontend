@@ -20,9 +20,6 @@ jwt:
     expiration:
       seconds: 3600
 
-keycloak:
-  authorization-endpoint: /oauth2/authorization/keycloak
-
 spring:
   application:
     name: webdiet-frontend-service
@@ -30,15 +27,16 @@ spring:
     oauth2:
       client:
         registration:
-          keycloak:
-            client-id: webdiet-ui
-            client-secret: 6yrKrlQmW1rQUtiogHx2wSz7h4DmkQRB
+          webdiet-client-oidc:
+            provider: spring
+            client-id: webdiet
+            client-secret: webdiet-secret
             authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/{registrationId}"
             scope: openid, profile
+            client-name: webdiet-client-oidc
         provider:
-          keycloak:
-            issuer-uri: http://localhost:8081/realms/webdiet
-            user-name-attribute: preferred_username
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8081/realms/webdiet
+          spring:
+            jwk-set-uri: http://auth-server:8888/jwk
+server:
+  port: 8080
