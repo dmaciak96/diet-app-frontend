@@ -15,6 +15,8 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
 
+authorization-endpoint: "/oauth2/authorization/webdiet-client-oidc"
+
 jwt:
   cookie:
     expiration:
@@ -29,14 +31,14 @@ spring:
         registration:
           webdiet-client-oidc:
             provider: spring
-            client-id: webdiet
+            client-id: webdiet-client
             client-secret: webdiet-secret
             authorization-grant-type: authorization_code
             redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/{registrationId}"
-            scope: openid, profile
+            scope: openid
             client-name: webdiet-client-oidc
         provider:
           spring:
-            jwk-set-uri: http://auth-server:8888/jwk
+            issuer-uri: http://auth-server:8888
 server:
   port: 8080

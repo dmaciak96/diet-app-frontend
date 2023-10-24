@@ -24,7 +24,7 @@ public class StartView extends VerticalLayout implements HasDynamicTitle {
 
     private final String authorizationEndpoint;
 
-    public StartView(@Value("${keycloak.authorization-endpoint}") String authorizationEndpoint) {
+    public StartView(@Value("${authorization-endpoint}") String authorizationEndpoint) {
         this.authorizationEndpoint = authorizationEndpoint;
         this.setWidthFull();
         this.setHeightFull();
