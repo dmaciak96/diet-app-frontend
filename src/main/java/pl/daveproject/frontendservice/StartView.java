@@ -39,7 +39,6 @@ public class StartView extends VerticalLayout implements HasDynamicTitle {
         var imageResource = new StreamResource("logo.png",
                 () -> getClass().getResourceAsStream("/img/logo.png"));
         var image = new Image(imageResource, "Webdiet logo");
-        image.addClickListener(e -> UI.getCurrent().navigate(DashboardView.class));
         image.addClassName(LumoUtility.Margin.Top.LARGE);
         return image;
     }

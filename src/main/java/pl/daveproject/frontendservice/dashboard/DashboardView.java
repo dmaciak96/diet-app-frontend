@@ -10,10 +10,11 @@ import jakarta.annotation.security.PermitAll;
 import pl.daveproject.frontendservice.bmi.model.BmiRate;
 import pl.daveproject.frontendservice.bmi.service.BmiService;
 import pl.daveproject.frontendservice.caloricneeds.service.TotalCaloricNeedsService;
+import pl.daveproject.frontendservice.configuration.security.SecurityConfiguration;
 import pl.daveproject.frontendservice.layout.AfterLoginAppLayout;
 
 @PermitAll
-@Route(value = "/dashboard", layout = AfterLoginAppLayout.class)
+@Route(value = SecurityConfiguration.DEFAULT_SUCCESS_URL, layout = AfterLoginAppLayout.class)
 public class DashboardView extends HorizontalLayout implements HasDynamicTitle {
 
     private final BmiService bmiService;
@@ -43,14 +44,14 @@ public class DashboardView extends HorizontalLayout implements HasDynamicTitle {
         latestBmiLayout.setWidthFull();
 
         var latestBmi = bmiService.findLatest();
-        if(latestBmi.isPresent()) {
+        if (latestBmi.isPresent()) {
             var titleText = new NativeLabel(getTranslation("bmi-view.value"));
             titleText.addClassName(LumoUtility.FontSize.XXLARGE);
 
             var valueText = new NativeLabel(latestBmi.get().getValue() + " (" + getTranslation(latestBmi.get().getRate().getTranslationKey()) + ")");
             valueText.addClassName(LumoUtility.FontSize.LARGE);
 
-            if(latestBmi.get().getRate() == BmiRate.CORRECT_VALUE) {
+            if (latestBmi.get().getRate() == BmiRate.CORRECT_VALUE) {
                 valueText.addClassName(LumoUtility.TextColor.SUCCESS);
             } else {
                 valueText.addClassName(LumoUtility.TextColor.ERROR);
@@ -81,7 +82,7 @@ public class DashboardView extends HorizontalLayout implements HasDynamicTitle {
         latestTotalCaloricNeedsLayout.setWidthFull();
 
         var totalCaloricNeedsLatest = totalCaloricNeedsService.findLatest();
-        if(totalCaloricNeedsLatest.isPresent()) {
+        if (totalCaloricNeedsLatest.isPresent()) {
             var titleText = new NativeLabel(getTranslation("total-caloric-needs.title"));
             titleText.addClassName(LumoUtility.FontSize.XXLARGE);
 
