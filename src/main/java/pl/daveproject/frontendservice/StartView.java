@@ -13,13 +13,13 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import pl.daveproject.frontendservice.dashboard.DashboardView;
+import pl.daveproject.frontendservice.configuration.security.SecurityConfiguration;
 import pl.daveproject.frontendservice.layout.BeforeLoginAppLayout;
 
 @Slf4j
 @AnonymousAllowed
 @Route(value = "/start", layout = BeforeLoginAppLayout.class)
-@RouteAlias(value = "/", layout = BeforeLoginAppLayout.class)
+@RouteAlias(value = SecurityConfiguration.LOGOUT_SUCCESS_URL, layout = BeforeLoginAppLayout.class)
 public class StartView extends VerticalLayout implements HasDynamicTitle {
 
     private final String authorizationEndpoint;

@@ -14,7 +14,7 @@ import pl.daveproject.frontendservice.configuration.security.SecurityConfigurati
 import pl.daveproject.frontendservice.layout.AfterLoginAppLayout;
 
 @PermitAll
-@Route(value = SecurityConfiguration.DEFAULT_SUCCESS_URL, layout = AfterLoginAppLayout.class)
+@Route(value = SecurityConfiguration.LOGIN_SUCCESS_URL, layout = AfterLoginAppLayout.class)
 public class DashboardView extends HorizontalLayout implements HasDynamicTitle {
 
     private final BmiService bmiService;
